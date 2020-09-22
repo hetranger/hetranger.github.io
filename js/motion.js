@@ -19,6 +19,7 @@ NexT.motion.integrator = {
     this.queue.forEach(sequence => {
       const timeline = window.anime.timeline({
         duration: 200,
+        // duration: 100
         easing  : 'linear'
       });
       sequence.forEach(item => {
@@ -38,6 +39,7 @@ NexT.motion.middleWares = {
         targets,
         scaleX  : [0, 1],
         duration: 500,
+       //  duration: 200
         deltaT  : '-=200'
       });
     }

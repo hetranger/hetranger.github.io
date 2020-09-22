@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Best Time to Buy and Sell Stock with Transaction Fee</title>
+    <url>/Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Your are given an array of integers <code>prices</code>, for which the <code>i</code>-th element is the price of a given stock on day <code>i</code>; and a non-negative integer <code>fee</code>representing a transaction fee.</p>
+<p>You may complete as many transactions as you like, but you need to pay the transaction fee for each transaction. You may not buy more than 1 share of a stock at a time (ie. you must sell the stock share before you buy again.)</p>
+<p>Return the maximum profit you can make.</p>
+<a id="more"></a>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: prices &#x3D; [1, 3, 2, 8, 4, 9], fee &#x3D; 2</span><br><span class="line">Output: 8</span><br><span class="line">Explanation: The maximum profit can be achieved by:</span><br><span class="line">Buying at prices[0] &#x3D; 1Selling at prices[3] &#x3D; 8Buying at prices[4] &#x3D; 4Selling at prices[5] &#x3D; 9The total profit is ((8 - 1) - 2) + ((9 - 4) - 2) &#x3D; 8.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<p><code>0 &lt; prices.length &lt;= 50000</code>.</p>
+<p><code>0 &lt; prices[i] &lt; 50000</code>.</p>
+<p><code>0 &lt;= fee &lt; 50000</code>.</p>
+<h3 id="approach-1-dynamic-programming-accepted">Approach #1: Dynamic Programming [Accepted]</h3>
+<p>At the end of the <code>i</code>-th day, we maintain <code>cash</code>, the maximum profit we could have if we did not have a share of stock, and <code>hold</code>, the maximum profit we could have if we owned a share of stock.</p>
+<p>To transition from the <code>i</code>-th day to the <code>i+1</code>-th day, we either sell our stock <code>cash = max(cash, hold + prices[i] - fee)</code> or buy a stock <code>hold = max(hold, cash - prices[i])</code>. At the end, we want to return <code>cash</code>. We can transform <code>cash</code> first without using temporary variables because selling and buying on the same day can't be better than just continuing to hold the stock.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span>(<span class="params">self, prices, fee</span>):</span></span><br><span class="line">        cash, hold = <span class="number">0</span>, -prices[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(prices)):</span><br><span class="line">            cash = max(cash, hold + prices[i] - fee)</span><br><span class="line">            hold = max(hold, cash - prices[i])</span><br><span class="line">        <span class="keyword">return</span> cash</span><br></pre></td></tr></table></figure>
+<h3 id="approach-2-greedy-algorithm-accepted">Approach #2: Greedy Algorithm [Accepted]</h3>
+<p>when the prices[i] is the local maximum in the modified array which is different from the original array at location <code>i</code>, i.e. prices[i] = prices[i] - fee, and prices[i] &gt; minimum + fee, we sell the stock. Otherwise we actually didn't buy the stock at day <code>i'</code> where prices[i'] = minimum, and just waiting another day <code>j</code> when prices[j] &lt; minimum.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> minimum = prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prices[i] &lt; minimum)&#123;</span><br><span class="line">                minimum = prices[i];</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(prices[i] &gt; minimum + fee)&#123;</span><br><span class="line">                ans += prices[i] - minimum - fee;</span><br><span class="line">                minimum = prices[i] - fee;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>DP</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Design a Stack With Increment Operation</title>
     <url>/Design-a-Stack-With-Increment-Operation/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
@@ -31,33 +58,6 @@
       <categories>
         <category>leetcode</category>
         <category>stack</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Best Time to Buy and Sell Stock with Transaction Fee</title>
-    <url>/Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Your are given an array of integers <code>prices</code>, for which the <code>i</code>-th element is the price of a given stock on day <code>i</code>; and a non-negative integer <code>fee</code>representing a transaction fee.</p>
-<p>You may complete as many transactions as you like, but you need to pay the transaction fee for each transaction. You may not buy more than 1 share of a stock at a time (ie. you must sell the stock share before you buy again.)</p>
-<p>Return the maximum profit you can make.</p>
-<a id="more"></a>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: prices &#x3D; [1, 3, 2, 8, 4, 9], fee &#x3D; 2</span><br><span class="line">Output: 8</span><br><span class="line">Explanation: The maximum profit can be achieved by:</span><br><span class="line">Buying at prices[0] &#x3D; 1Selling at prices[3] &#x3D; 8Buying at prices[4] &#x3D; 4Selling at prices[5] &#x3D; 9The total profit is ((8 - 1) - 2) + ((9 - 4) - 2) &#x3D; 8.</span><br></pre></td></tr></table></figure>
-<p><strong>Note:</strong></p>
-<p><code>0 &lt; prices.length &lt;= 50000</code>.</p>
-<p><code>0 &lt; prices[i] &lt; 50000</code>.</p>
-<p><code>0 &lt;= fee &lt; 50000</code>.</p>
-<h3 id="approach-1-dynamic-programming-accepted">Approach #1: Dynamic Programming [Accepted]</h3>
-<p>At the end of the <code>i</code>-th day, we maintain <code>cash</code>, the maximum profit we could have if we did not have a share of stock, and <code>hold</code>, the maximum profit we could have if we owned a share of stock.</p>
-<p>To transition from the <code>i</code>-th day to the <code>i+1</code>-th day, we either sell our stock <code>cash = max(cash, hold + prices[i] - fee)</code> or buy a stock <code>hold = max(hold, cash - prices[i])</code>. At the end, we want to return <code>cash</code>. We can transform <code>cash</code> first without using temporary variables because selling and buying on the same day can't be better than just continuing to hold the stock.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span>(<span class="params">self, prices, fee</span>):</span></span><br><span class="line">        cash, hold = <span class="number">0</span>, -prices[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(prices)):</span><br><span class="line">            cash = max(cash, hold + prices[i] - fee)</span><br><span class="line">            hold = max(hold, cash - prices[i])</span><br><span class="line">        <span class="keyword">return</span> cash</span><br></pre></td></tr></table></figure>
-<h3 id="approach-2-greedy-algorithm-accepted">Approach #2: Greedy Algorithm [Accepted]</h3>
-<p>when the prices[i] is the local maximum in the modified array which is different from the original array at location <code>i</code>, i.e. prices[i] = prices[i] - fee, and prices[i] &gt; minimum + fee, we sell the stock. Otherwise we actually didn't buy the stock at day <code>i'</code> where prices[i'] = minimum, and just waiting another day <code>j</code> when prices[j] &lt; minimum.</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> minimum = prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prices[i] &lt; minimum)&#123;</span><br><span class="line">                minimum = prices[i];</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(prices[i] &gt; minimum + fee)&#123;</span><br><span class="line">                ans += prices[i] - minimum - fee;</span><br><span class="line">                minimum = prices[i] - fee;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>DP</category>
       </categories>
   </entry>
   <entry>
@@ -153,6 +153,25 @@
       </categories>
   </entry>
   <entry>
+    <title>Palindrome Partitioning</title>
+    <url>/Palindrome-Partitioning/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given a string <em>s</em>, partition <em>s</em> such that every substring of the partition is a palindrome.</p>
+<p>Return all possible palindrome partitioning of <em>s</em>.</p>
+<a id="more"></a>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: &quot;aab&quot;</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;aa&quot;,&quot;b&quot;],</span><br><span class="line">  [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="solution">Solution</h3>
+<p>Dynamic programming and back tracking. Pay attention to the initialization of <code>dp</code> array and the updating order, i.e. <code>i</code> from <code>0</code> to <code>n</code> and <code>j</code> from <code>0</code> to <code>i</code>.</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>( s[i] == s[j] &amp;&amp; (i - j &lt;= <span class="number">1</span> || dp[j+<span class="number">1</span>][i<span class="number">-1</span>]))&#123;</span><br><span class="line">                    dp[j][i] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; trace;</span><br><span class="line">        back_track(s, <span class="number">0</span>, trace, ans, dp);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">back_track</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">int</span> begin, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;trace, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;ans, <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>])</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">if</span>(begin &gt;= n)&#123;</span><br><span class="line">            ans.push_back(trace);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; begin + j &lt; n; j ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[begin][begin+j])&#123;</span><br><span class="line">                trace.push_back(s.substr(begin, j+<span class="number">1</span>));</span><br><span class="line">                back_track(s, begin+j+<span class="number">1</span>, trace, ans, dp);</span><br><span class="line">                trace.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>DP</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Palindrome Partitioning II</title>
     <url>/Palindrome-Partitioning-II/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
@@ -203,25 +222,6 @@
       <categories>
         <category>leetcode</category>
         <category>array</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Palindrome Partitioning</title>
-    <url>/Palindrome-Partitioning/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given a string <em>s</em>, partition <em>s</em> such that every substring of the partition is a palindrome.</p>
-<p>Return all possible palindrome partitioning of <em>s</em>.</p>
-<a id="more"></a>
-<p><strong>Example:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: &quot;aab&quot;</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;aa&quot;,&quot;b&quot;],</span><br><span class="line">  [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h3 id="solution">Solution</h3>
-<p>Dynamic programming and back tracking. Pay attention to the initialization of <code>dp</code> array and the updating order, i.e. <code>i</code> from <code>0</code> to <code>n</code> and <code>j</code> from <code>0</code> to <code>i</code>.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>( s[i] == s[j] &amp;&amp; (i - j &lt;= <span class="number">1</span> || dp[j+<span class="number">1</span>][i<span class="number">-1</span>]))&#123;</span><br><span class="line">                    dp[j][i] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; trace;</span><br><span class="line">        back_track(s, <span class="number">0</span>, trace, ans, dp);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">back_track</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">int</span> begin, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;trace, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;ans, <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>])</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">if</span>(begin &gt;= n)&#123;</span><br><span class="line">            ans.push_back(trace);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; begin + j &lt; n; j ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[begin][begin+j])&#123;</span><br><span class="line">                trace.push_back(s.substr(begin, j+<span class="number">1</span>));</span><br><span class="line">                back_track(s, begin+j+<span class="number">1</span>, trace, ans, dp);</span><br><span class="line">                trace.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>DP</category>
       </categories>
   </entry>
   <entry>
@@ -283,30 +283,6 @@
       <categories>
         <category>leetcode</category>
         <category>binary tree</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Remove Duplicates from Sorted Array II</title>
-    <url>/Remove-Duplicates-from-Sorted-Array-II/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given a sorted array <em>nums</em>, remove the duplicates <a href="https://en.wikipedia.org/wiki/In-place_algorithm"><strong>in-place</strong></a> such that duplicates appeared at most <em>twice</em> and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by <strong>modifying the input array <a href="https://en.wikipedia.org/wiki/In-place_algorithm">in-place</a></strong> with O(1) extra memory.</p>
-<a id="more"></a>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Given nums &#x3D; [1,1,1,2,2,3],</span><br><span class="line"></span><br><span class="line">Your function should return length &#x3D; 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.</span><br><span class="line"></span><br><span class="line">It doesn&#39;t matter what you leave beyond the returned length.</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Given nums &#x3D; [0,0,1,1,1,1,2,3,3],</span><br><span class="line"></span><br><span class="line">Your function should return length &#x3D; 7, with the first seven elements of nums being modified to 0, 0, 1, 1, 2, 3 and 3 respectively.</span><br><span class="line"></span><br><span class="line">It doesn&#39;t matter what values are set beyond the returned length.</span><br></pre></td></tr></table></figure>
-<p><strong>Clarification:</strong></p>
-<p>Confused why the returned value is an integer but your answer is an array?</p>
-<p>Note that the input array is passed in by <strong>reference</strong>, which means modification to the input array will be known to the caller as well.</p>
-<p>Internally you can think of this:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// nums is passed in by reference. (i.e., without making a copy)</span></span><br><span class="line"><span class="keyword">int</span> len = removeDuplicates(nums);</span><br><span class="line"></span><br><span class="line"><span class="comment">// any modification to nums in your function would be known by the caller.</span></span><br><span class="line"><span class="comment">// using the length returned by your function, it prints the first len elements.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.size() &lt; <span class="number">3</span>) <span class="keyword">return</span> nums.size();</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>, cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == nums[k] &amp;&amp; cnt &lt; <span class="number">1</span>) &#123;</span><br><span class="line">                nums[++k] = nums[i];</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[i] != nums[k]) &#123;</span><br><span class="line">                nums[++k] = nums[i];</span><br><span class="line">                cnt = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> k+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>array</category>
       </categories>
   </entry>
   <entry>
@@ -379,28 +355,27 @@
       </categories>
   </entry>
   <entry>
-    <title>Sum of Nodes with Even-Valued Grandparent</title>
-    <url>/Sum-of-Nodes-with-Even-Valued-Grandparent/</url>
+    <title>Remove Duplicates from Sorted Array II</title>
+    <url>/Remove-Duplicates-from-Sorted-Array-II/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given a binary tree, return the sum of values of nodes with even-valued grandparent. (A <em>grandparent</em> of a node is the parent of its parent, if it exists.)</p>
-<p>If there are no nodes with an even-valued grandparent, return <code>0</code>.</p>
+<p>Given a sorted array <em>nums</em>, remove the duplicates <a href="https://en.wikipedia.org/wiki/In-place_algorithm"><strong>in-place</strong></a> such that duplicates appeared at most <em>twice</em> and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by <strong>modifying the input array <a href="https://en.wikipedia.org/wiki/In-place_algorithm">in-place</a></strong> with O(1) extra memory.</p>
 <a id="more"></a>
-<p><strong>Example 1</strong>:</p>
-<p><img src=https://assets.leetcode.com/uploads/2019/07/24/1473_ex1.png align='left'/></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: root &#x3D; [6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]</span><br><span class="line">Output: 18</span><br><span class="line">Explanation: The red nodes are the nodes with even-value grandparent while the blue nodes are the even-value grandparents.</span><br></pre></td></tr></table></figure>
-<p><strong>Constraints</strong></p>
-<ul>
-<li>The number of nodes in the tree is between <code>1</code> and <code>10^4</code>.</li>
-<li>The value of nodes is between <code>1</code> and <code>100</code>.</li>
-</ul>
-<h2 id="solution">Solution</h2>
-<p>Traversal with two flags marking whether parent and grandparent are even or not.</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sumEvenGrandparent</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        helper(root, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode *root, <span class="keyword">int</span> peven, <span class="keyword">int</span> gpeven)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(gpeven == <span class="number">1</span>)&#123;</span><br><span class="line">            sum += root-&gt;val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> cureven = root-&gt;val %<span class="number">2</span>==<span class="number">0</span>? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">        helper(root-&gt;left, cureven, peven);</span><br><span class="line">        helper(root-&gt;right, cureven, peven);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Given nums &#x3D; [1,1,1,2,2,3],</span><br><span class="line"></span><br><span class="line">Your function should return length &#x3D; 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.</span><br><span class="line"></span><br><span class="line">It doesn&#39;t matter what you leave beyond the returned length.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Given nums &#x3D; [0,0,1,1,1,1,2,3,3],</span><br><span class="line"></span><br><span class="line">Your function should return length &#x3D; 7, with the first seven elements of nums being modified to 0, 0, 1, 1, 2, 3 and 3 respectively.</span><br><span class="line"></span><br><span class="line">It doesn&#39;t matter what values are set beyond the returned length.</span><br></pre></td></tr></table></figure>
+<p><strong>Clarification:</strong></p>
+<p>Confused why the returned value is an integer but your answer is an array?</p>
+<p>Note that the input array is passed in by <strong>reference</strong>, which means modification to the input array will be known to the caller as well.</p>
+<p>Internally you can think of this:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// nums is passed in by reference. (i.e., without making a copy)</span></span><br><span class="line"><span class="keyword">int</span> len = removeDuplicates(nums);</span><br><span class="line"></span><br><span class="line"><span class="comment">// any modification to nums in your function would be known by the caller.</span></span><br><span class="line"><span class="comment">// using the length returned by your function, it prints the first len elements.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.size() &lt; <span class="number">3</span>) <span class="keyword">return</span> nums.size();</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>, cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == nums[k] &amp;&amp; cnt &lt; <span class="number">1</span>) &#123;</span><br><span class="line">                nums[++k] = nums[i];</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[i] != nums[k]) &#123;</span><br><span class="line">                nums[++k] = nums[i];</span><br><span class="line">                cnt = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> k+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>leetcode</category>
-        <category>binary tree</category>
+        <category>array</category>
       </categories>
   </entry>
   <entry>
@@ -437,6 +412,54 @@
       </categories>
   </entry>
   <entry>
+    <title>Sum of Nodes with Even-Valued Grandparent</title>
+    <url>/Sum-of-Nodes-with-Even-Valued-Grandparent/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given a binary tree, return the sum of values of nodes with even-valued grandparent. (A <em>grandparent</em> of a node is the parent of its parent, if it exists.)</p>
+<p>If there are no nodes with an even-valued grandparent, return <code>0</code>.</p>
+<a id="more"></a>
+<p><strong>Example 1</strong>:</p>
+<p><img src=https://assets.leetcode.com/uploads/2019/07/24/1473_ex1.png align='left'/></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: root &#x3D; [6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]</span><br><span class="line">Output: 18</span><br><span class="line">Explanation: The red nodes are the nodes with even-value grandparent while the blue nodes are the even-value grandparents.</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints</strong></p>
+<ul>
+<li>The number of nodes in the tree is between <code>1</code> and <code>10^4</code>.</li>
+<li>The value of nodes is between <code>1</code> and <code>100</code>.</li>
+</ul>
+<h2 id="solution">Solution</h2>
+<p>Traversal with two flags marking whether parent and grandparent are even or not.</p>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sumEvenGrandparent</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        helper(root, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode *root, <span class="keyword">int</span> peven, <span class="keyword">int</span> gpeven)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(gpeven == <span class="number">1</span>)&#123;</span><br><span class="line">            sum += root-&gt;val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> cureven = root-&gt;val %<span class="number">2</span>==<span class="number">0</span>? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">        helper(root-&gt;left, cureven, peven);</span><br><span class="line">        helper(root-&gt;right, cureven, peven);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>binary tree</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Unique Binary Search Trees</title>
+    <url>/Unique-Binary-Search-Trees/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given <em>n</em>, how many structurally unique <strong>BST's</strong> (binary search trees) that store values 1 ... <em>n</em>?</p>
+<a id="more"></a>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: 3</span><br><span class="line">Output: 5</span><br><span class="line">Explanation:</span><br><span class="line">Given n &#x3D; 3, there are a total of 5 unique BST&#39;s:</span><br><span class="line"></span><br><span class="line">   1         3     3      2      1</span><br><span class="line">    \       &#x2F;     &#x2F;      &#x2F; \      \</span><br><span class="line">     3     2     1      1   3      2</span><br><span class="line">    &#x2F;     &#x2F;       \                 \</span><br><span class="line">   2     1         2                 3</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 19</code></li>
+</ul>
+<h3 id="solution">Solution</h3>
+<p>Obviously, the answer is Catalan Number. But how to calculate it? One way is to use the close formula: <span class="math inline">\(C(n) = \frac{1}{n+1}\binom{2n}{n}\)</span>. When we calculate the binomial coefficient <span class="math inline">\(\binom{2n}{n}\)</span> in a iteration, the update expression is <code>ans = ans*i/(i-n)</code>, where <code>i</code> is from <code>n+1</code> to <code>2n</code>. But, why the <code>ans</code> is always integer? More general, why the binomial coefficient is always integer? It seems trivial, since we can easily justify it by retrospecting the definition of binomial coefficient. However when we look at the formula of binomial coefficient, <span class="math inline">\(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</span>, the fact become non-trivial. The idea to prove it via pure mathematic method is using the iterative formula <span class="math inline">\(\binom{n}{k} = \binom{n-1}{k} + \binom{n-1}{k-1}\)</span> and reduce the original to base case, i.e. using mathematic induction.</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n+<span class="number">1</span>; i &lt;= <span class="number">2</span>*n; i ++)&#123;</span><br><span class="line">            ans = ans * i / (i-n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans/(n+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>math</category>
+        <category>combinatorics</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Valid Parenthesis String</title>
     <url>/Valid-Parenthesis-String/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
@@ -467,29 +490,6 @@
       <categories>
         <category>leetcode</category>
         <category>array</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Unique Binary Search Trees</title>
-    <url>/Unique-Binary-Search-Trees/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given <em>n</em>, how many structurally unique <strong>BST's</strong> (binary search trees) that store values 1 ... <em>n</em>?</p>
-<a id="more"></a>
-<p><strong>Example:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: 3</span><br><span class="line">Output: 5</span><br><span class="line">Explanation:</span><br><span class="line">Given n &#x3D; 3, there are a total of 5 unique BST&#39;s:</span><br><span class="line"></span><br><span class="line">   1         3     3      2      1</span><br><span class="line">    \       &#x2F;     &#x2F;      &#x2F; \      \</span><br><span class="line">     3     2     1      1   3      2</span><br><span class="line">    &#x2F;     &#x2F;       \                 \</span><br><span class="line">   2     1         2                 3</span><br></pre></td></tr></table></figure>
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= n &lt;= 19</code></li>
-</ul>
-<h3 id="solution">Solution</h3>
-<p>Obviously, the answer is Catalan Number. But how to calculate it? One way is to use the close formula: <span class="math inline">\(C(n) = \frac{1}{n+1}\binom{2n}{n}\)</span>. When we calculate the binomial coefficient <span class="math inline">\(\binom{2n}{n}\)</span> in a iteration, the update expression is <code>ans = ans*i/(i-n)</code>, where <code>i</code> is from <code>n+1</code> to <code>2n</code>. But, why the <code>ans</code> is always integer? More general, why the binomial coefficient is always integer? It seems trivial, since we can easily justify it by retrospecting the definition of binomial coefficient. However when we look at the formula of binomial coefficient, <span class="math inline">\(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</span>, the fact become non-trivial. The idea to prove it via pure mathematic method is using the iterative formula <span class="math inline">\(\binom{n}{k} = \binom{n-1}{k} + \binom{n-1}{k-1}\)</span> and reduce the original to base case, i.e. using mathematic induction.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n+<span class="number">1</span>; i &lt;= <span class="number">2</span>*n; i ++)&#123;</span><br><span class="line">            ans = ans * i / (i-n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans/(n+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>math</category>
-        <category>combinatorics</category>
       </categories>
   </entry>
   <entry>
