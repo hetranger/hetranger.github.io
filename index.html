@@ -16,10 +16,11 @@
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
   <meta property="og:type" content="website">
@@ -259,10 +260,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-09-21 22:20:05 / 修改时间：22:20:24" itemprop="dateCreated datePublished" datetime="2020-09-21T22:20:05+08:00">2020-09-21</time>
+      <time title="创建时间：2020-09-21 22:20:05" itemprop="dateCreated datePublished" datetime="2020-09-21T22:20:05+08:00">2020-09-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-22 09:44:41" itemprop="dateModified" datetime="2020-09-22T09:44:41+08:00">2020-09-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -278,6 +285,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
 </div>
 
         </div>
@@ -289,18 +303,14 @@
     <div class="post-body" itemprop="articleBody">
           <h3 id="description">Description</h3>
 <p>Given an array consists of non-negative integers, your task is to count the number of triplets chosen from the array that can make triangles if we take them as side lengths of a triangle.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: [2,2,3,4]</span><br><span class="line">Output: 3</span><br><span class="line">Explanation:</span><br><span class="line">Valid combinations are: </span><br><span class="line">2,3,4 (using the first 2)</span><br><span class="line">2,3,4 (using the second 2)</span><br><span class="line">2,2,3</span><br></pre></td></tr></table></figure>
-<p><strong>Note:</strong></p>
-<ol type="1">
-<li>The length of the given array won't exceed 1000.</li>
-<li>The integers in the given array are in the range of [0, 1000].</li>
-</ol>
-<h3 id="solution">Solution</h3>
-<p>The solution is similar to 3 Sum problem, where we use three pointers. Firstly, we sort the array in <strong>descending</strong> order. Then we use an traverse pointer k to indicate the longest side of triangle nums[k], and two pointers i, j to indicate the other 2 sides which initialized to k + 1 and nums.size()-1 respectively. When nums[i] + nums[j] &lt; nums[k], it's not a valid triangle, we should decrease j. Otherwise we know that there must be j-i valid combination, and the count is increased by j-i, then we test a smaller nums[i]+nums[j] by increasing i. The time complexity is <span class="math inline">\(O(n^2)\)</span>.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">triangleNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        sort(nums.begin(), nums.end(), greater&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">        <span class="keyword">if</span>(nums.size()&lt;<span class="number">3</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; nums.size()<span class="number">-2</span>; k++)&#123;</span><br><span class="line">            <span class="keyword">int</span> i = k + <span class="number">1</span>, j = nums.size()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i] + nums[j] &lt;= nums[k])&#123;</span><br><span class="line">                    j --;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    count += j - i;</span><br><span class="line">                    i ++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Valid-Triangle-Numer/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -348,10 +358,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-09-21 22:19:15 / 修改时间：22:19:44" itemprop="dateCreated datePublished" datetime="2020-09-21T22:19:15+08:00">2020-09-21</time>
+      <time title="创建时间：2020-09-21 22:19:15" itemprop="dateCreated datePublished" datetime="2020-09-21T22:19:15+08:00">2020-09-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-22 09:44:26" itemprop="dateModified" datetime="2020-09-22T09:44:26+08:00">2020-09-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -367,6 +383,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
 </div>
 
         </div>
@@ -385,21 +408,14 @@
 <li><code>'*'</code> could be treated as a single right parenthesis <code>')'</code> or a single left parenthesis <code>'('</code> or an empty string.</li>
 <li>An empty string is also valid.</li>
 </ol>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;()&quot;</span><br><span class="line">Output: True</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;(*)&quot;</span><br><span class="line">Output: True</span><br></pre></td></tr></table></figure>
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;(*))&quot;</span><br><span class="line">Output: True</span><br></pre></td></tr></table></figure>
-<p><strong>Note:</strong></p>
-<ol type="1">
-<li>The string size will be in the range [1, 100].</li>
-</ol>
-<h3 id="solution">Solution</h3>
-<p>We keep tracking of the maximum and minimum number of needed <code>)</code> in the future, denoted as <code>cmax</code> and <code>cmin</code> respectively, when we pass the string. <code>cmax</code> means that we treat every <code>*</code> as <code>(</code> and <code>cmin</code> means that we treat every <code>*</code> as <code>)</code>. But when <code>cmin</code> is 0, it means that there must be at least <code>*</code> before should be treated as empty, so <code>cmin</code> is always greater or euqal than <code>0</code>. During the pass if the <code>cmax</code> is less than 0, we know there must be too many <code>)</code>. After the pass, if <code>cmin</code> is not <code>0</code>, there must be too many <code>(</code>, otherwise we are good.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">checkValidString</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cmax =<span class="number">0</span>, cmin= <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : s)&#123;</span><br><span class="line">            <span class="keyword">if</span>(c == <span class="string">&#x27;(&#x27;</span>)&#123;</span><br><span class="line">                cmax ++;</span><br><span class="line">                cmin++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(c == <span class="string">&#x27;)&#x27;</span>)&#123;</span><br><span class="line">                cmax --;</span><br><span class="line">                <span class="keyword">if</span>(cmin &gt; <span class="number">0</span>) cmin --;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                cmax ++;</span><br><span class="line">                <span class="keyword">if</span>(cmin &gt; <span class="number">0</span>) cmin --;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cmax &lt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> cmin == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Valid-Parenthesis-String/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -447,10 +463,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-09-21 22:18:39 / 修改时间：22:19:00" itemprop="dateCreated datePublished" datetime="2020-09-21T22:18:39+08:00">2020-09-21</time>
+      <time title="创建时间：2020-09-21 22:18:39" itemprop="dateCreated datePublished" datetime="2020-09-21T22:18:39+08:00">2020-09-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-22 09:43:43" itemprop="dateModified" datetime="2020-09-22T09:43:43+08:00">2020-09-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -466,6 +488,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.5k</span>
+    </span>
 </div>
 
         </div>
@@ -478,18 +507,14 @@
           <h3 id="description">Description</h3>
 <p>Given a sorted array <em>nums</em>, remove the duplicates <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/In-place_algorithm"><strong>in-place</strong></a> such that duplicates appeared at most <em>twice</em> and return the new length.</p>
 <p>Do not allocate extra space for another array, you must do this by <strong>modifying the input array <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/In-place_algorithm">in-place</a></strong> with O(1) extra memory.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Given nums &#x3D; [1,1,1,2,2,3],</span><br><span class="line"></span><br><span class="line">Your function should return length &#x3D; 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.</span><br><span class="line"></span><br><span class="line">It doesn&#39;t matter what you leave beyond the returned length.</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Given nums &#x3D; [0,0,1,1,1,1,2,3,3],</span><br><span class="line"></span><br><span class="line">Your function should return length &#x3D; 7, with the first seven elements of nums being modified to 0, 0, 1, 1, 2, 3 and 3 respectively.</span><br><span class="line"></span><br><span class="line">It doesn&#39;t matter what values are set beyond the returned length.</span><br></pre></td></tr></table></figure>
-<p><strong>Clarification:</strong></p>
-<p>Confused why the returned value is an integer but your answer is an array?</p>
-<p>Note that the input array is passed in by <strong>reference</strong>, which means modification to the input array will be known to the caller as well.</p>
-<p>Internally you can think of this:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// nums is passed in by reference. (i.e., without making a copy)</span></span><br><span class="line"><span class="keyword">int</span> len = removeDuplicates(nums);</span><br><span class="line"></span><br><span class="line"><span class="comment">// any modification to nums in your function would be known by the caller.</span></span><br><span class="line"><span class="comment">// using the length returned by your function, it prints the first len elements.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.size() &lt; <span class="number">3</span>) <span class="keyword">return</span> nums.size();</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>, cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == nums[k] &amp;&amp; cnt &lt; <span class="number">1</span>) &#123;</span><br><span class="line">                nums[++k] = nums[i];</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[i] != nums[k]) &#123;</span><br><span class="line">                nums[++k] = nums[i];</span><br><span class="line">                cnt = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> k+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Remove-Duplicates-from-Sorted-Array-II/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -537,10 +562,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-09-21 22:18:04 / 修改时间：22:18:28" itemprop="dateCreated datePublished" datetime="2020-09-21T22:18:04+08:00">2020-09-21</time>
+      <time title="创建时间：2020-09-21 22:18:04" itemprop="dateCreated datePublished" datetime="2020-09-21T22:18:04+08:00">2020-09-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-22 09:43:20" itemprop="dateModified" datetime="2020-09-22T09:43:20+08:00">2020-09-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -556,6 +587,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.3k</span>
+    </span>
 </div>
 
         </div>
@@ -577,20 +615,14 @@
 <p>For the purposes of this question, we will consider that a falling domino expends no additional force to a falling or already fallen domino.</p>
 <p>Given a string "S" representing the initial state. <code>S[i] = 'L'</code>, if the i-th domino has been pushed to the left; <code>S[i] = 'R'</code>, if the i-th domino has been pushed to the right; <code>S[i] = '.'</code>, if the <code>i</code>-th domino has not been pushed.</p>
 <p>Return a string representing the final state.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;.L.R...LR..L..&quot;</span><br><span class="line">Output: &quot;LL.RR.LLRRLL..&quot;</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;RR.L&quot;</span><br><span class="line">Output: &quot;RR.L&quot;</span><br><span class="line">Explanation: The first domino expends no additional force on the second domino.</span><br></pre></td></tr></table></figure>
-<p><strong>Note:</strong></p>
-<ol type="1">
-<li><code>0 &lt;= N &lt;= 10^5</code></li>
-<li>String <code>dominoes</code> contains only <code>'L</code>', <code>'R'</code> and <code>'.'</code></li>
-</ol>
-<h3 id="solution">Solution</h3>
-<p>Using two pointers. <code>i</code> indicates last push point, and <code>j</code> indicates current push point. Determine the middle dominoes' states according to different combination of states of <code>dominoes[i]</code> and <code>dominoes[j]</code>.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">pushDominoes</span><span class="params">(<span class="built_in">string</span> dominoes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">string</span> res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span>(; i &lt; dominoes.length(); i ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dominoes[i] != <span class="string">&#x27;.&#x27;</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dominoes[i] == <span class="string">&#x27;L&#x27;</span>)</span><br><span class="line">            res += <span class="built_in">string</span>(i, <span class="string">&#x27;L&#x27;</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            res += <span class="built_in">string</span>(i, <span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span>(i &lt; dominoes.length())</span><br><span class="line">            res += <span class="built_in">string</span>(<span class="number">1</span>, dominoes[i]);</span><br><span class="line">        <span class="keyword">int</span> j = i + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(; j &lt; dominoes.length(); j ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dominoes[j] == <span class="string">&#x27;.&#x27;</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> middle = j - i - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(dominoes[j] == <span class="string">&#x27;L&#x27;</span> &amp;&amp; dominoes[i] == <span class="string">&#x27;R&#x27;</span>)&#123;</span><br><span class="line">                res += <span class="built_in">string</span>(middle/<span class="number">2</span>, <span class="string">&#x27;R&#x27;</span>) + <span class="built_in">string</span>(middle%<span class="number">2</span>, <span class="string">&#x27;.&#x27;</span>) + <span class="built_in">string</span>(middle/<span class="number">2</span>, <span class="string">&#x27;L&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(dominoes[j] == <span class="string">&#x27;R&#x27;</span> &amp;&amp; dominoes[i] == <span class="string">&#x27;L&#x27;</span>)&#123;</span><br><span class="line">                res += <span class="built_in">string</span>(middle, <span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                res += <span class="built_in">string</span>(middle, dominoes[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            res += dominoes[j];</span><br><span class="line">            i = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dominoes[i] == <span class="string">&#x27;L&#x27;</span>)&#123;</span><br><span class="line">            res += <span class="built_in">string</span>(dominoes.length() - i - <span class="number">1</span>, <span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(dominoes[i] == <span class="string">&#x27;R&#x27;</span>)&#123;</span><br><span class="line">            res += <span class="built_in">string</span>(dominoes.length() - i - <span class="number">1</span>, <span class="string">&#x27;R&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Push-Dominoes/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -638,10 +670,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-09-21 22:17:28 / 修改时间：22:17:50" itemprop="dateCreated datePublished" datetime="2020-09-21T22:17:28+08:00">2020-09-21</time>
+      <time title="创建时间：2020-09-21 22:17:28" itemprop="dateCreated datePublished" datetime="2020-09-21T22:17:28+08:00">2020-09-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-22 09:42:56" itemprop="dateModified" datetime="2020-09-22T09:42:56+08:00">2020-09-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -657,6 +695,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2k</span>
+    </span>
 </div>
 
         </div>
@@ -670,18 +715,14 @@
 <p>In a 2 dimensional array <code>grid</code>, each value <code>grid[i][j]</code> represents the height of a building located there. We are allowed to increase the height of any number of buildings, by any amount (the amounts can be different for different buildings). Height 0 is considered to be a building as well.</p>
 <p>At the end, the "skyline" when viewed from all four directions of the grid, i.e. top, bottom, left, and right, must be the same as the skyline of the original grid. A city's skyline is the outer contour of the rectangles formed by all the buildings when viewed from a distance. See the following example.</p>
 <p>What is the maximum total sum that the height of the buildings can be increased?</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">Input: grid &#x3D; [[3,0,8,4],[2,4,5,7],[9,2,6,3],[0,3,1,0]]</span><br><span class="line">Output: 35</span><br><span class="line">Explanation: </span><br><span class="line">The grid is:</span><br><span class="line">[ [3, 0, 8, 4], </span><br><span class="line">  [2, 4, 5, 7],</span><br><span class="line">  [9, 2, 6, 3],</span><br><span class="line">  [0, 3, 1, 0] ]</span><br><span class="line"></span><br><span class="line">The skyline viewed from top or bottom is: [9, 4, 8, 7]</span><br><span class="line">The skyline viewed from left or right is: [8, 7, 9, 3]</span><br><span class="line"></span><br><span class="line">The grid after increasing the height of buildings without affecting skylines is:</span><br><span class="line"></span><br><span class="line">gridNew &#x3D; [ [8, 4, 8, 7],</span><br><span class="line">            [7, 4, 7, 7],</span><br><span class="line">            [9, 4, 8, 7],</span><br><span class="line">            [3, 3, 3, 3] ]</span><br></pre></td></tr></table></figure>
-<p><strong>Notes:</strong></p>
-<ul>
-<li><code>1 &lt; grid.length = grid[0].length &lt;= 50</code>.</li>
-<li>All heights <code>grid[i][j]</code> are in the range <code>[0, 100]</code>.</li>
-<li>All buildings in <code>grid[i][j]</code> occupy the entire grid cell: that is, they are a <code>1 x 1 x grid[i][j]</code> rectangular prism.</li>
-</ul>
-<h3 id="solution">Solution</h3>
-<p>We find the skyline viewed in different directions first, then increase the buildings' height according these skylines. Specially, we can increase the height of building located at <code>(i, j)</code> with height <code>min(skyline1[i] - skyline2[j]) - grid[i,j]</code>, where <code>skyline1</code> and <code>skyline2</code> are skylines viewed from top and left respectively.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxIncreaseKeepingSkyline</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = grid.size(), n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">skyline1</span><span class="params">(m, <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">skyline2</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] &gt; skyline1[i]) skyline1[i] = grid[i][j];</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] &gt; skyline2[j]) skyline2[j] = grid[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j ++)&#123;</span><br><span class="line">                sum += max(<span class="number">0</span>, min(skyline1[i], skyline2[j]) - grid[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Max-Increase-to-Keep-City-Skyline/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -729,10 +770,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-09-21 22:16:48 / 修改时间：22:17:07" itemprop="dateCreated datePublished" datetime="2020-09-21T22:16:48+08:00">2020-09-21</time>
+      <time title="创建时间：2020-09-21 22:16:48" itemprop="dateCreated datePublished" datetime="2020-09-21T22:16:48+08:00">2020-09-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-22 09:44:08" itemprop="dateModified" datetime="2020-09-22T09:44:08+08:00">2020-09-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -748,6 +795,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
 </div>
 
         </div>
@@ -760,19 +814,14 @@
           <h3 id="description">Description</h3>
 <p>Given a binary tree, return the sum of values of nodes with even-valued grandparent. (A <em>grandparent</em> of a node is the parent of its parent, if it exists.)</p>
 <p>If there are no nodes with an even-valued grandparent, return <code>0</code>.</p>
-<p><strong>Example 1</strong>:</p>
-<p><img src=https://assets.leetcode.com/uploads/2019/07/24/1473_ex1.png align='left'/></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: root &#x3D; [6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]</span><br><span class="line">Output: 18</span><br><span class="line">Explanation: The red nodes are the nodes with even-value grandparent while the blue nodes are the even-value grandparents.</span><br></pre></td></tr></table></figure>
-<p><strong>Constraints</strong></p>
-<ul>
-<li>The number of nodes in the tree is between <code>1</code> and <code>10^4</code>.</li>
-<li>The value of nodes is between <code>1</code> and <code>100</code>.</li>
-</ul>
-<h2 id="solution">Solution</h2>
-<p>Traversal with two flags marking whether parent and grandparent are even or not.</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sumEvenGrandparent</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        helper(root, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode *root, <span class="keyword">int</span> peven, <span class="keyword">int</span> gpeven)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(gpeven == <span class="number">1</span>)&#123;</span><br><span class="line">            sum += root-&gt;val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> cureven = root-&gt;val %<span class="number">2</span>==<span class="number">0</span>? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">        helper(root-&gt;left, cureven, peven);</span><br><span class="line">        helper(root-&gt;right, cureven, peven);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Sum-of-Nodes-with-Even-Valued-Grandparent/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -820,10 +869,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-09-21 22:15:57 / 修改时间：22:16:34" itemprop="dateCreated datePublished" datetime="2020-09-21T22:15:57+08:00">2020-09-21</time>
+      <time title="创建时间：2020-09-21 22:15:57" itemprop="dateCreated datePublished" datetime="2020-09-21T22:15:57+08:00">2020-09-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-22 09:43:56" itemprop="dateModified" datetime="2020-09-22T09:43:56+08:00">2020-09-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -839,6 +894,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
 </div>
 
         </div>
@@ -852,26 +914,14 @@
 <p>Given the <code>root</code> of a binary tree, each node has a value from <code>0</code> to <code>25</code>representing the letters <code>'a'</code> to <code>'z'</code>: a value of <code>0</code> represents <code>'a'</code>, a value of <code>1</code> represents <code>'b'</code>, and so on.</p>
 <p>Find the lexicographically smallest string that starts at a leaf of this tree and ends at the root.</p>
 <p><em>(As a reminder, any shorter prefix of a string is lexicographically smaller: for example, <code>"ab"</code> is lexicographically smaller than <code>"aba"</code>. A leaf of a node is a node that has no children.)</em></p>
-<p><strong>Example 1:</strong></p>
-<p><strong><img src="https://assets.leetcode.com/uploads/2019/01/30/tree1.png" alt="img" /></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [0,1,2,3,4,3,4]</span><br><span class="line">Output: &quot;dba&quot;</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<p><strong><img src="https://assets.leetcode.com/uploads/2019/01/30/tree2.png" alt="img" /></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [25,1,3,1,3,0,2]</span><br><span class="line">Output: &quot;adz&quot;</span><br></pre></td></tr></table></figure>
-<p><strong>Example 3:</strong></p>
-<p><strong><img src="https://assets.leetcode.com/uploads/2019/02/01/tree3.png" alt="img" /></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [2,2,1,null,1,0,null,0]</span><br><span class="line">Output: &quot;abc&quot;</span><br></pre></td></tr></table></figure>
-<p><strong>Note:</strong></p>
-<ol type="1">
-<li>The number of nodes in the given tree will be between <code>1</code> and <code>8500</code>.</li>
-<li>Each node in the tree will have a value between <code>0</code> and <code>25</code>.</li>
-</ol>
-<h3 id="solution">Solution</h3>
-<p>Full traversal + back tracking. <strong>Note</strong>: divide and conquer are <strong>incorrect</strong>!!</p>
-<p><strong>Counterexample:</strong> abcd &gt; abc while abcd + z &lt; abc+z</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">smallestFromLeaf</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">string</span> tmp = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        helper(root, tmp);</span><br><span class="line">        <span class="keyword">return</span> mmax;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode*root, <span class="built_in">string</span> &amp; track)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">char</span> cur = <span class="string">&#x27;a&#x27;</span> + root-&gt;val;</span><br><span class="line">        track = cur + track;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(track &lt; mmax) mmax = track;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            helper(root-&gt;left, track);</span><br><span class="line">            helper(root-&gt;right, track);</span><br><span class="line">        &#125;</span><br><span class="line">        track = track.substr(<span class="number">1</span>, track.size()<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">string</span> mmax = <span class="string">&quot;zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz&quot;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Smallest-String-Starting-From-Leaf/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -919,10 +969,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-09-21 22:10:23 / 修改时间：22:11:37" itemprop="dateCreated datePublished" datetime="2020-09-21T22:10:23+08:00">2020-09-21</time>
+      <time title="创建时间：2020-09-21 22:10:23" itemprop="dateCreated datePublished" datetime="2020-09-21T22:10:23+08:00">2020-09-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-22 09:43:37" itemprop="dateModified" datetime="2020-09-22T09:43:37+08:00">2020-09-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -938,6 +994,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
 </div>
 
         </div>
@@ -950,20 +1013,14 @@
           <h3 id="description">Description</h3>
 <p>Two elements of a binary search tree (BST) are swapped by mistake.</p>
 <p>Recover the tree without changing its structure.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,3,null,null,2]</span><br><span class="line"></span><br><span class="line">   1</span><br><span class="line">  &#x2F;</span><br><span class="line"> 3</span><br><span class="line">  \</span><br><span class="line">   2</span><br><span class="line"></span><br><span class="line">Output: [3,1,null,null,2]</span><br><span class="line"></span><br><span class="line">   3</span><br><span class="line">  &#x2F;</span><br><span class="line"> 1</span><br><span class="line">  \</span><br><span class="line">   2</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,1,4,null,null,2]</span><br><span class="line"></span><br><span class="line">  3</span><br><span class="line"> &#x2F; \</span><br><span class="line">1   4</span><br><span class="line">   &#x2F;</span><br><span class="line">  2</span><br><span class="line"></span><br><span class="line">Output: [2,1,4,null,null,3]</span><br><span class="line"></span><br><span class="line">  2</span><br><span class="line"> &#x2F; \</span><br><span class="line">1   4</span><br><span class="line">   &#x2F;</span><br><span class="line">  3</span><br></pre></td></tr></table></figure>
-<p><strong>Follow up:</strong></p>
-<ul>
-<li>A solution using O(<em>n</em>) space is pretty straight forward.</li>
-<li>Could you devise a constant space solution?</li>
-</ul>
-<h2 id="solution">Solution</h2>
-<p>In order traverse.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">recoverTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        helper(root);</span><br><span class="line">        <span class="keyword">int</span> tmp = first-&gt;val;</span><br><span class="line">        first-&gt;val = second-&gt;val;</span><br><span class="line">        second-&gt;val = tmp;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode * root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        helper(root-&gt;left);</span><br><span class="line">        <span class="keyword">if</span>(prev)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prev-&gt;val &gt; root-&gt;val)&#123;</span><br><span class="line">                <span class="keyword">if</span>(first == <span class="literal">NULL</span>)&#123;</span><br><span class="line">                    first = prev;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(first != <span class="literal">NULL</span>)&#123;</span><br><span class="line">                    second = root;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 1 3 2 4</span></span><br><span class="line">        prev = root;</span><br><span class="line">        helper(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    TreeNode* first, *second, *prev = <span class="literal">NULL</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Recover-Binary-Search-Tree/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1011,10 +1068,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-09-21 22:08:56 / 修改时间：22:10:04" itemprop="dateCreated datePublished" datetime="2020-09-21T22:08:56+08:00">2020-09-21</time>
+      <time title="创建时间：2020-09-21 22:08:56" itemprop="dateCreated datePublished" datetime="2020-09-21T22:08:56+08:00">2020-09-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-22 09:42:31" itemprop="dateModified" datetime="2020-09-22T09:42:31+08:00">2020-09-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1030,6 +1093,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.2k</span>
+    </span>
 </div>
 
         </div>
@@ -1047,11 +1117,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line"> \</span><br><span class="line">  2</span><br><span class="line">   \</span><br><span class="line">    3</span><br><span class="line">     \</span><br><span class="line">      4</span><br><span class="line">       \</span><br><span class="line">        5</span><br><span class="line">         \</span><br><span class="line">          6</span><br></pre></td></tr></table></figure>
 <p>Hint:</p>
 <p>If you notice carefully in the flattened tree, each node's right child points to the next node of a pre-order traversal.</p>
-<h3 id="solution">Solution</h3>
-<p>Pre-order traversing and keep track last non-NULL node.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">flatten</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        helper(root);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">TreeNode* <span class="title">helper</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode* left_last = helper(root-&gt;left);</span><br><span class="line">        TreeNode* right_last = helper(root-&gt;right);</span><br><span class="line">        <span class="keyword">if</span>(left_last == <span class="literal">NULL</span> &amp;&amp; right_last == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(left_last == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> right_last;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            left_last-&gt;right = root-&gt;right;</span><br><span class="line">            root-&gt;right = root-&gt;left;</span><br><span class="line">            root-&gt;left = <span class="literal">NULL</span>;</span><br><span class="line">            <span class="keyword">return</span> right_last == <span class="literal">NULL</span> ? left_last : right_last;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Flatten-Binary-Tree-to-Linked-List/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1099,10 +1172,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-09-21 22:01:07 / 修改时间：23:40:38" itemprop="dateCreated datePublished" datetime="2020-09-21T22:01:07+08:00">2020-09-21</time>
+      <time title="创建时间：2020-09-21 22:01:07" itemprop="dateCreated datePublished" datetime="2020-09-21T22:01:07+08:00">2020-09-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-22 09:44:17" itemprop="dateModified" datetime="2020-09-22T09:44:17+08:00">2020-09-22</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1122,6 +1201,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
 </div>
 
         </div>
@@ -1133,17 +1219,14 @@
     <div class="post-body" itemprop="articleBody">
           <h3 id="description">Description</h3>
 <p>Given <em>n</em>, how many structurally unique <strong>BST's</strong> (binary search trees) that store values 1 ... <em>n</em>?</p>
-<p><strong>Example:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: 3</span><br><span class="line">Output: 5</span><br><span class="line">Explanation:</span><br><span class="line">Given n &#x3D; 3, there are a total of 5 unique BST&#39;s:</span><br><span class="line"></span><br><span class="line">   1         3     3      2      1</span><br><span class="line">    \       &#x2F;     &#x2F;      &#x2F; \      \</span><br><span class="line">     3     2     1      1   3      2</span><br><span class="line">    &#x2F;     &#x2F;       \                 \</span><br><span class="line">   2     1         2                 3</span><br></pre></td></tr></table></figure>
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= n &lt;= 19</code></li>
-</ul>
-<h3 id="solution">Solution</h3>
-<p>Obviously, the answer is Catalan Number. But how to calculate it? One way is to use the close formula: <span class="math inline">\(C(n) = \frac{1}{n+1}\binom{2n}{n}\)</span>. When we calculate the binomial coefficient <span class="math inline">\(\binom{2n}{n}\)</span> in a iteration, the update expression is <code>ans = ans*i/(i-n)</code>, where <code>i</code> is from <code>n+1</code> to <code>2n</code>. But, why the <code>ans</code> is always integer? More general, why the binomial coefficient is always integer? It seems trivial, since we can easily justify it by retrospecting the definition of binomial coefficient. However when we look at the formula of binomial coefficient, <span class="math inline">\(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</span>, the fact become non-trivial. The idea to prove it via pure mathematic method is using the iterative formula <span class="math inline">\(\binom{n}{k} = \binom{n-1}{k} + \binom{n-1}{k-1}\)</span> and reduce the original to base case, i.e. using mathematic induction.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n+<span class="number">1</span>; i &lt;= <span class="number">2</span>*n; i ++)&#123;</span><br><span class="line">            ans = ans * i / (i-n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans/(n+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Unique-Binary-Search-Trees/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1199,7 +1282,10 @@
     <div class="footer-inner">
       
 
-      
+      <script
+  async
+  src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"
+></script>
 
 <div class="copyright">
   
@@ -1210,6 +1296,33 @@
   </span>
   <span class="author" itemprop="copyrightHolder">L'étranger</span>
 </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">32k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
@@ -1218,6 +1331,8 @@
 
   
   <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
@@ -1240,6 +1355,7 @@
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
