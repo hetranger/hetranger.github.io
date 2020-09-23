@@ -116,15 +116,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/uncategorized/Hello-Hexo/</url>
-    <content><![CDATA[<p>The game is on!</p>
-]]></content>
-      <tags>
-        <tag>Testing</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Implement strStr()</title>
     <url>/leetcode/DP/Implement-strStr/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
@@ -153,6 +144,15 @@
       </categories>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/uncategorized/Hello-Hexo/</url>
+    <content><![CDATA[<p>The game is on!</p>
+]]></content>
+      <tags>
+        <tag>Testing</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Max Increase to Keep City Skyline</title>
     <url>/leetcode/array/Max-Increase-to-Keep-City-Skyline/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
@@ -175,6 +175,53 @@
       <categories>
         <category>leetcode</category>
         <category>array</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Palindrome Partitioning II</title>
+    <url>/leetcode/DP/Palindrome-Partitioning-II/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given a string <code>s</code>, partition <code>s</code> such that every substring of the partition is a palindrome</p>
+<p>Return <em>the minimum cuts needed</em> for a palindrome partitioning of <code>s</code>.</p>
+<a id="more"></a>
+<p><strong>Example 1</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;aab&quot;</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: The palindrome partitioning [&quot;aa&quot;,&quot;b&quot;] could be produced using 1 cut.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;a&quot;</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;ab&quot;</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints</strong>:</p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 2000</code></li>
+<li><code>s</code> consists of lower-case English letters only.</li>
+</ul>
+<h3 id="solution">Solution</h3>
+<p>Dynamic programming, using <code>min_cut</code> to indicate the minimum cut of the first k letters. Traverse from left to right using pointer <span class="math inline">\(i\)</span>, and find the palindrome string centered at <code>i</code>. When find one, the min_cut of right end of the palindrome string is equal to <code>min(min_cut[left_end-1]+1, min_cut[right_end])</code>. Since min_cut is updated from left to right, the <code>min_cut[left_end-1]</code> is calculated properly when we use it. Finally, we return the <code>min_cut[n]</code> as the result, where <code>n</code> is the length of string <code>s</code>.</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minCut</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">min_cut</span><span class="params">(n+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i ++) min_cut[i] = i<span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; i+j<span class="number">-1</span>&lt;n &amp;&amp; i-j&gt;=<span class="number">1</span> &amp;&amp; s[i-j<span class="number">-1</span>]==s[i+j<span class="number">-1</span>]; j ++ )&#123;</span><br><span class="line">                min_cut[i+j] = min(min_cut[i+j], min_cut[i-j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; i-j&gt;=<span class="number">1</span> &amp;&amp; i+j &lt;n &amp;&amp; s[i-j<span class="number">-1</span>]==s[i+j]; j ++)&#123;</span><br><span class="line">                min_cut[i+j+<span class="number">1</span>] = min(min_cut[i+j+<span class="number">1</span>], min_cut[i-j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> min_cut[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>DP</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Palindrome Partitioning</title>
+    <url>/leetcode/DP/Palindrome-Partitioning/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given a string <em>s</em>, partition <em>s</em> such that every substring of the partition is a palindrome.</p>
+<p>Return all possible palindrome partitioning of <em>s</em>.</p>
+<a id="more"></a>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: &quot;aab&quot;</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;aa&quot;,&quot;b&quot;],</span><br><span class="line">  [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="solution">Solution</h3>
+<p>Dynamic programming and back tracking. Pay attention to the initialization of <code>dp</code> array and the updating order, i.e. <code>i</code> from <code>0</code> to <code>n</code> and <code>j</code> from <code>0</code> to <code>i</code>.</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>( s[i] == s[j] &amp;&amp; (i - j &lt;= <span class="number">1</span> || dp[j+<span class="number">1</span>][i<span class="number">-1</span>]))&#123;</span><br><span class="line">                    dp[j][i] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; trace;</span><br><span class="line">        back_track(s, <span class="number">0</span>, trace, ans, dp);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">back_track</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">int</span> begin, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;trace, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;ans, <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>])</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">if</span>(begin &gt;= n)&#123;</span><br><span class="line">            ans.push_back(trace);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; begin + j &lt; n; j ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[begin][begin+j])&#123;</span><br><span class="line">                trace.push_back(s.substr(begin, j+<span class="number">1</span>));</span><br><span class="line">                back_track(s, begin+j+<span class="number">1</span>, trace, ans, dp);</span><br><span class="line">                trace.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>DP</category>
       </categories>
   </entry>
   <entry>
@@ -210,34 +257,6 @@
       <categories>
         <category>leetcode</category>
         <category>array</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Palindrome Partitioning II</title>
-    <url>/leetcode/DP/Palindrome-Partitioning-II/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given a string <code>s</code>, partition <code>s</code> such that every substring of the partition is a palindrome</p>
-<p>Return <em>the minimum cuts needed</em> for a palindrome partitioning of <code>s</code>.</p>
-<a id="more"></a>
-<p><strong>Example 1</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;aab&quot;</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: The palindrome partitioning [&quot;aa&quot;,&quot;b&quot;] could be produced using 1 cut.</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;a&quot;</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
-<p><strong>Example 3</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;ab&quot;</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
-<p><strong>Constraints</strong>:</p>
-<ul>
-<li><code>1 &lt;= s.length &lt;= 2000</code></li>
-<li><code>s</code> consists of lower-case English letters only.</li>
-</ul>
-<h3 id="solution">Solution</h3>
-<p>Dynamic programming, using <code>min_cut</code> to indicate the minimum cut of the first k letters. Traverse from left to right using pointer <span class="math inline">\(i\)</span>, and find the palindrome string centered at <code>i</code>. When find one, the min_cut of right end of the palindrome string is equal to <code>min(min_cut[left_end-1]+1, min_cut[right_end])</code>. Since min_cut is updated from left to right, the <code>min_cut[left_end-1]</code> is calculated properly when we use it. Finally, we return the <code>min_cut[n]</code> as the result, where <code>n</code> is the length of string <code>s</code>.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minCut</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">min_cut</span><span class="params">(n+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i ++) min_cut[i] = i<span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; i+j<span class="number">-1</span>&lt;n &amp;&amp; i-j&gt;=<span class="number">1</span> &amp;&amp; s[i-j<span class="number">-1</span>]==s[i+j<span class="number">-1</span>]; j ++ )&#123;</span><br><span class="line">                min_cut[i+j] = min(min_cut[i+j], min_cut[i-j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; i-j&gt;=<span class="number">1</span> &amp;&amp; i+j &lt;n &amp;&amp; s[i-j<span class="number">-1</span>]==s[i+j]; j ++)&#123;</span><br><span class="line">                min_cut[i+j+<span class="number">1</span>] = min(min_cut[i+j+<span class="number">1</span>], min_cut[i-j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> min_cut[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>DP</category>
       </categories>
   </entry>
   <entry>
@@ -531,25 +550,6 @@
       <categories>
         <category>leetcode</category>
         <category>array</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Palindrome Partitioning</title>
-    <url>/leetcode/DP/Palindrome-Partitioning/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given a string <em>s</em>, partition <em>s</em> such that every substring of the partition is a palindrome.</p>
-<p>Return all possible palindrome partitioning of <em>s</em>.</p>
-<a id="more"></a>
-<p><strong>Example:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: &quot;aab&quot;</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;aa&quot;,&quot;b&quot;],</span><br><span class="line">  [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h3 id="solution">Solution</h3>
-<p>Dynamic programming and back tracking. Pay attention to the initialization of <code>dp</code> array and the updating order, i.e. <code>i</code> from <code>0</code> to <code>n</code> and <code>j</code> from <code>0</code> to <code>i</code>.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>( s[i] == s[j] &amp;&amp; (i - j &lt;= <span class="number">1</span> || dp[j+<span class="number">1</span>][i<span class="number">-1</span>]))&#123;</span><br><span class="line">                    dp[j][i] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; trace;</span><br><span class="line">        back_track(s, <span class="number">0</span>, trace, ans, dp);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">back_track</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">int</span> begin, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;trace, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;ans, <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>])</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">if</span>(begin &gt;= n)&#123;</span><br><span class="line">            ans.push_back(trace);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; begin + j &lt; n; j ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[begin][begin+j])&#123;</span><br><span class="line">                trace.push_back(s.substr(begin, j+<span class="number">1</span>));</span><br><span class="line">                back_track(s, begin+j+<span class="number">1</span>, trace, ans, dp);</span><br><span class="line">                trace.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>DP</category>
       </categories>
   </entry>
 </search>
