@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Best Time to Buy and Sell Stock with Transaction Fee</title>
-    <url>/Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee/</url>
+    <url>/leetcode/DP/Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Your are given an array of integers <code>prices</code>, for which the <code>i</code>-th element is the price of a given stock on day <code>i</code>; and a non-negative integer <code>fee</code>representing a transaction fee.</p>
 <p>You may complete as many transactions as you like, but you need to pay the transaction fee for each transaction. You may not buy more than 1 share of a stock at a time (ie. you must sell the stock share before you buy again.)</p>
@@ -29,7 +29,7 @@
   </entry>
   <entry>
     <title>Design a Stack With Increment Operation</title>
-    <url>/Design-a-Stack-With-Increment-Operation/</url>
+    <url>/leetcode/stack/Design-a-Stack-With-Increment-Operation/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Design a stack which supports the following operations.</p>
 <p>Implement the <code>CustomStack</code> class:</p>
@@ -62,7 +62,7 @@
   </entry>
   <entry>
     <title>Dinner Plate Stacks</title>
-    <url>/Dinner-Plate-Stacks/</url>
+    <url>/leetcode/stack/Dinner-Plate-Stacks/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>You have an infinite number of stacks arranged in a row and numbered (left to right) from 0, each of the stacks has the same maximum <code>capacity</code>.</p>
 <p>Implement the <code>DinnerPlates</code> class:</p>
@@ -95,7 +95,7 @@
   </entry>
   <entry>
     <title>Flatten Binary Tree to Linked List</title>
-    <url>/Flatten-Binary-Tree-to-Linked-List/</url>
+    <url>/leetcode/binary-tree/Flatten-Binary-Tree-to-Linked-List/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Given a binary tree, flatten it to a linked list in-place.</p>
 <p>For example, given the following tree:</p>
@@ -117,7 +117,7 @@
   </entry>
   <entry>
     <title>Hello World</title>
-    <url>/Hello-Hexo/</url>
+    <url>/uncategorized/Hello-Hexo/</url>
     <content><![CDATA[<p>The game is on!</p>
 ]]></content>
       <tags>
@@ -125,33 +125,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Max Increase to Keep City Skyline</title>
-    <url>/Max-Increase-to-Keep-City-Skyline/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>In a 2 dimensional array <code>grid</code>, each value <code>grid[i][j]</code> represents the height of a building located there. We are allowed to increase the height of any number of buildings, by any amount (the amounts can be different for different buildings). Height 0 is considered to be a building as well.</p>
-<p>At the end, the "skyline" when viewed from all four directions of the grid, i.e. top, bottom, left, and right, must be the same as the skyline of the original grid. A city's skyline is the outer contour of the rectangles formed by all the buildings when viewed from a distance. See the following example.</p>
-<p>What is the maximum total sum that the height of the buildings can be increased?</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Example:</span><br><span class="line">Input: grid &#x3D; [[3,0,8,4],[2,4,5,7],[9,2,6,3],[0,3,1,0]]</span><br><span class="line">Output: 35</span><br><span class="line">Explanation: </span><br><span class="line">The grid is:</span><br><span class="line">[ [3, 0, 8, 4], </span><br><span class="line">  [2, 4, 5, 7],</span><br><span class="line">  [9, 2, 6, 3],</span><br><span class="line">  [0, 3, 1, 0] ]</span><br><span class="line"></span><br><span class="line">The skyline viewed from top or bottom is: [9, 4, 8, 7]</span><br><span class="line">The skyline viewed from left or right is: [8, 7, 9, 3]</span><br><span class="line"></span><br><span class="line">The grid after increasing the height of buildings without affecting skylines is:</span><br><span class="line"></span><br><span class="line">gridNew &#x3D; [ [8, 4, 8, 7],</span><br><span class="line">            [7, 4, 7, 7],</span><br><span class="line">            [9, 4, 8, 7],</span><br><span class="line">            [3, 3, 3, 3] ]</span><br></pre></td></tr></table></figure>
-<p><strong>Notes:</strong></p>
-<ul>
-<li><code>1 &lt; grid.length = grid[0].length &lt;= 50</code>.</li>
-<li>All heights <code>grid[i][j]</code> are in the range <code>[0, 100]</code>.</li>
-<li>All buildings in <code>grid[i][j]</code> occupy the entire grid cell: that is, they are a <code>1 x 1 x grid[i][j]</code> rectangular prism.</li>
-</ul>
-<h3 id="solution">Solution</h3>
-<p>We find the skyline viewed in different directions first, then increase the buildings' height according these skylines. Specially, we can increase the height of building located at <code>(i, j)</code> with height <code>min(skyline1[i] - skyline2[j]) - grid[i,j]</code>, where <code>skyline1</code> and <code>skyline2</code> are skylines viewed from top and left respectively.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxIncreaseKeepingSkyline</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = grid.size(), n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">skyline1</span><span class="params">(m, <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">skyline2</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] &gt; skyline1[i]) skyline1[i] = grid[i][j];</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] &gt; skyline2[j]) skyline2[j] = grid[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j ++)&#123;</span><br><span class="line">                sum += max(<span class="number">0</span>, min(skyline1[i], skyline2[j]) - grid[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>array</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Implement strStr()</title>
-    <url>/Implement-strStr/</url>
+    <url>/leetcode/DP/Implement-strStr/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Implement <a href="http://www.cplusplus.com/reference/cstring/strstr/">strStr()</a>.</p>
 <p>Return the index of the first occurrence of needle in haystack, or <strong>-1</strong> if needle is not part of haystack.</p>
@@ -178,55 +153,33 @@
       </categories>
   </entry>
   <entry>
-    <title>Palindrome Partitioning II</title>
-    <url>/Palindrome-Partitioning-II/</url>
+    <title>Max Increase to Keep City Skyline</title>
+    <url>/leetcode/array/Max-Increase-to-Keep-City-Skyline/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given a string <code>s</code>, partition <code>s</code> such that every substring of the partition is a palindrome</p>
-<p>Return <em>the minimum cuts needed</em> for a palindrome partitioning of <code>s</code>.</p>
+<p>In a 2 dimensional array <code>grid</code>, each value <code>grid[i][j]</code> represents the height of a building located there. We are allowed to increase the height of any number of buildings, by any amount (the amounts can be different for different buildings). Height 0 is considered to be a building as well.</p>
+<p>At the end, the "skyline" when viewed from all four directions of the grid, i.e. top, bottom, left, and right, must be the same as the skyline of the original grid. A city's skyline is the outer contour of the rectangles formed by all the buildings when viewed from a distance. See the following example.</p>
+<p>What is the maximum total sum that the height of the buildings can be increased?</p>
 <a id="more"></a>
-<p><strong>Example 1</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;aab&quot;</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: The palindrome partitioning [&quot;aa&quot;,&quot;b&quot;] could be produced using 1 cut.</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;a&quot;</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
-<p><strong>Example 3</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;ab&quot;</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
-<p><strong>Constraints</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Example:</span><br><span class="line">Input: grid &#x3D; [[3,0,8,4],[2,4,5,7],[9,2,6,3],[0,3,1,0]]</span><br><span class="line">Output: 35</span><br><span class="line">Explanation: </span><br><span class="line">The grid is:</span><br><span class="line">[ [3, 0, 8, 4], </span><br><span class="line">  [2, 4, 5, 7],</span><br><span class="line">  [9, 2, 6, 3],</span><br><span class="line">  [0, 3, 1, 0] ]</span><br><span class="line"></span><br><span class="line">The skyline viewed from top or bottom is: [9, 4, 8, 7]</span><br><span class="line">The skyline viewed from left or right is: [8, 7, 9, 3]</span><br><span class="line"></span><br><span class="line">The grid after increasing the height of buildings without affecting skylines is:</span><br><span class="line"></span><br><span class="line">gridNew &#x3D; [ [8, 4, 8, 7],</span><br><span class="line">            [7, 4, 7, 7],</span><br><span class="line">            [9, 4, 8, 7],</span><br><span class="line">            [3, 3, 3, 3] ]</span><br></pre></td></tr></table></figure>
+<p><strong>Notes:</strong></p>
 <ul>
-<li><code>1 &lt;= s.length &lt;= 2000</code></li>
-<li><code>s</code> consists of lower-case English letters only.</li>
+<li><code>1 &lt; grid.length = grid[0].length &lt;= 50</code>.</li>
+<li>All heights <code>grid[i][j]</code> are in the range <code>[0, 100]</code>.</li>
+<li>All buildings in <code>grid[i][j]</code> occupy the entire grid cell: that is, they are a <code>1 x 1 x grid[i][j]</code> rectangular prism.</li>
 </ul>
 <h3 id="solution">Solution</h3>
-<p>Dynamic programming, using <code>min_cut</code> to indicate the minimum cut of the first k letters. Traverse from left to right using pointer <span class="math inline">\(i\)</span>, and find the palindrome string centered at <code>i</code>. When find one, the min_cut of right end of the palindrome string is equal to <code>min(min_cut[left_end-1]+1, min_cut[right_end])</code>. Since min_cut is updated from left to right, the <code>min_cut[left_end-1]</code> is calculated properly when we use it. Finally, we return the <code>min_cut[n]</code> as the result, where <code>n</code> is the length of string <code>s</code>.</p>
+<p>We find the skyline viewed in different directions first, then increase the buildings' height according these skylines. Specially, we can increase the height of building located at <code>(i, j)</code> with height <code>min(skyline1[i] - skyline2[j]) - grid[i,j]</code>, where <code>skyline1</code> and <code>skyline2</code> are skylines viewed from top and left respectively.</p>
 <h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minCut</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">min_cut</span><span class="params">(n+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i ++) min_cut[i] = i<span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; i+j<span class="number">-1</span>&lt;n &amp;&amp; i-j&gt;=<span class="number">1</span> &amp;&amp; s[i-j<span class="number">-1</span>]==s[i+j<span class="number">-1</span>]; j ++ )&#123;</span><br><span class="line">                min_cut[i+j] = min(min_cut[i+j], min_cut[i-j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; i-j&gt;=<span class="number">1</span> &amp;&amp; i+j &lt;n &amp;&amp; s[i-j<span class="number">-1</span>]==s[i+j]; j ++)&#123;</span><br><span class="line">                min_cut[i+j+<span class="number">1</span>] = min(min_cut[i+j+<span class="number">1</span>], min_cut[i-j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> min_cut[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxIncreaseKeepingSkyline</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = grid.size(), n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">skyline1</span><span class="params">(m, <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">skyline2</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] &gt; skyline1[i]) skyline1[i] = grid[i][j];</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] &gt; skyline2[j]) skyline2[j] = grid[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j ++)&#123;</span><br><span class="line">                sum += max(<span class="number">0</span>, min(skyline1[i], skyline2[j]) - grid[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>leetcode</category>
-        <category>DP</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Palindrome Partitioning</title>
-    <url>/Palindrome-Partitioning/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given a string <em>s</em>, partition <em>s</em> such that every substring of the partition is a palindrome.</p>
-<p>Return all possible palindrome partitioning of <em>s</em>.</p>
-<a id="more"></a>
-<p><strong>Example:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: &quot;aab&quot;</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;aa&quot;,&quot;b&quot;],</span><br><span class="line">  [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h3 id="solution">Solution</h3>
-<p>Dynamic programming and back tracking. Pay attention to the initialization of <code>dp</code> array and the updating order, i.e. <code>i</code> from <code>0</code> to <code>n</code> and <code>j</code> from <code>0</code> to <code>i</code>.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>( s[i] == s[j] &amp;&amp; (i - j &lt;= <span class="number">1</span> || dp[j+<span class="number">1</span>][i<span class="number">-1</span>]))&#123;</span><br><span class="line">                    dp[j][i] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; trace;</span><br><span class="line">        back_track(s, <span class="number">0</span>, trace, ans, dp);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">back_track</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">int</span> begin, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;trace, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;ans, <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>])</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">if</span>(begin &gt;= n)&#123;</span><br><span class="line">            ans.push_back(trace);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; begin + j &lt; n; j ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[begin][begin+j])&#123;</span><br><span class="line">                trace.push_back(s.substr(begin, j+<span class="number">1</span>));</span><br><span class="line">                back_track(s, begin+j+<span class="number">1</span>, trace, ans, dp);</span><br><span class="line">                trace.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>DP</category>
+        <category>array</category>
       </categories>
   </entry>
   <entry>
     <title>Push Dominoes</title>
-    <url>/Push-Dominoes/</url>
+    <url>/leetcode/array/Push-Dominoes/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>There are <code>N</code> dominoes in a line, and we place each domino vertically upright.</p>
 <p>In the beginning, we simultaneously push some of the dominoes either to the left or to the right.</p>
@@ -260,8 +213,36 @@
       </categories>
   </entry>
   <entry>
+    <title>Palindrome Partitioning II</title>
+    <url>/leetcode/DP/Palindrome-Partitioning-II/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given a string <code>s</code>, partition <code>s</code> such that every substring of the partition is a palindrome</p>
+<p>Return <em>the minimum cuts needed</em> for a palindrome partitioning of <code>s</code>.</p>
+<a id="more"></a>
+<p><strong>Example 1</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;aab&quot;</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: The palindrome partitioning [&quot;aa&quot;,&quot;b&quot;] could be produced using 1 cut.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;a&quot;</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: s &#x3D; &quot;ab&quot;</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints</strong>:</p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 2000</code></li>
+<li><code>s</code> consists of lower-case English letters only.</li>
+</ul>
+<h3 id="solution">Solution</h3>
+<p>Dynamic programming, using <code>min_cut</code> to indicate the minimum cut of the first k letters. Traverse from left to right using pointer <span class="math inline">\(i\)</span>, and find the palindrome string centered at <code>i</code>. When find one, the min_cut of right end of the palindrome string is equal to <code>min(min_cut[left_end-1]+1, min_cut[right_end])</code>. Since min_cut is updated from left to right, the <code>min_cut[left_end-1]</code> is calculated properly when we use it. Finally, we return the <code>min_cut[n]</code> as the result, where <code>n</code> is the length of string <code>s</code>.</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minCut</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">min_cut</span><span class="params">(n+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i ++) min_cut[i] = i<span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; i+j<span class="number">-1</span>&lt;n &amp;&amp; i-j&gt;=<span class="number">1</span> &amp;&amp; s[i-j<span class="number">-1</span>]==s[i+j<span class="number">-1</span>]; j ++ )&#123;</span><br><span class="line">                min_cut[i+j] = min(min_cut[i+j], min_cut[i-j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; i-j&gt;=<span class="number">1</span> &amp;&amp; i+j &lt;n &amp;&amp; s[i-j<span class="number">-1</span>]==s[i+j]; j ++)&#123;</span><br><span class="line">                min_cut[i+j+<span class="number">1</span>] = min(min_cut[i+j+<span class="number">1</span>], min_cut[i-j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> min_cut[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>DP</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Recover Binary Search Tree</title>
-    <url>/Recover-Binary-Search-Tree/</url>
+    <url>/leetcode/binary-tree/Recover-Binary-Search-Tree/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Two elements of a binary search tree (BST) are swapped by mistake.</p>
 <p>Recover the tree without changing its structure.</p>
@@ -287,7 +268,7 @@
   </entry>
   <entry>
     <title>Remove Duplicates from Sorted Array II</title>
-    <url>/Remove-Duplicates-from-Sorted-Array-II/</url>
+    <url>/leetcode/array/Remove-Duplicates-from-Sorted-Array-II/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Given a sorted array <em>nums</em>, remove the duplicates <a href="https://en.wikipedia.org/wiki/In-place_algorithm"><strong>in-place</strong></a> such that duplicates appeared at most <em>twice</em> and return the new length.</p>
 <p>Do not allocate extra space for another array, you must do this by <strong>modifying the input array <a href="https://en.wikipedia.org/wiki/In-place_algorithm">in-place</a></strong> with O(1) extra memory.</p>
@@ -311,7 +292,7 @@
   </entry>
   <entry>
     <title>Rotting Oranges</title>
-    <url>/Rotting-Oranges/</url>
+    <url>/leetcode/graph/Rotting-Oranges/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>In a given grid, each cell can have one of three values:</p>
 <ul>
@@ -347,7 +328,7 @@
   </entry>
   <entry>
     <title>Smallest String Starting From Leaf</title>
-    <url>/Smallest-String-Starting-From-Leaf/</url>
+    <url>/leetcode/binary-tree/Smallest-String-Starting-From-Leaf/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Given the <code>root</code> of a binary tree, each node has a value from <code>0</code> to <code>25</code>representing the letters <code>'a'</code> to <code>'z'</code>: a value of <code>0</code> represents <code>'a'</code>, a value of <code>1</code> represents <code>'b'</code>, and so on.</p>
 <p>Find the lexicographically smallest string that starts at a leaf of this tree and ends at the root.</p>
@@ -380,7 +361,7 @@
   </entry>
   <entry>
     <title>Stone Game IV</title>
-    <url>/Stone-Game-IV/</url>
+    <url>/leetcode/DP/Stone-Game-IV/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Alice and Bob take turns playing a game, with Alice starting first.</p>
 <p>Initially, there are <code>n</code> stones in a pile. On each player's turn, that player makes a <em>move</em> consisting of removing <strong>any</strong> non-zero <strong>square number</strong> of stones in the pile.</p>
@@ -413,7 +394,7 @@
   </entry>
   <entry>
     <title>Sum of Nodes with Even-Valued Grandparent</title>
-    <url>/Sum-of-Nodes-with-Even-Valued-Grandparent/</url>
+    <url>/leetcode/binary-tree/Sum-of-Nodes-with-Even-Valued-Grandparent/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Given a binary tree, return the sum of values of nodes with even-valued grandparent. (A <em>grandparent</em> of a node is the parent of its parent, if it exists.)</p>
 <p>If there are no nodes with an even-valued grandparent, return <code>0</code>.</p>
@@ -438,7 +419,7 @@
   </entry>
   <entry>
     <title>Unique Binary Search Trees</title>
-    <url>/Unique-Binary-Search-Trees/</url>
+    <url>/leetcode/math/combinatorics/Unique-Binary-Search-Trees/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Given <em>n</em>, how many structurally unique <strong>BST's</strong> (binary search trees) that store values 1 ... <em>n</em>?</p>
 <a id="more"></a>
@@ -461,7 +442,7 @@
   </entry>
   <entry>
     <title>Valid Parenthesis String</title>
-    <url>/Valid-Parenthesis-String/</url>
+    <url>/leetcode/array/Valid-Parenthesis-String/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>Given a string containing only three types of characters: '(', ')' and '*', write a function to check whether this string is valid. We define the validity of a string by these rules:</p>
 <ol type="1">
@@ -493,31 +474,8 @@
       </categories>
   </entry>
   <entry>
-    <title>Valid Triangle Numer</title>
-    <url>/Valid-Triangle-Numer/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given an array consists of non-negative integers, your task is to count the number of triplets chosen from the array that can make triangles if we take them as side lengths of a triangle.</p>
-<a id="more"></a>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: [2,2,3,4]</span><br><span class="line">Output: 3</span><br><span class="line">Explanation:</span><br><span class="line">Valid combinations are: </span><br><span class="line">2,3,4 (using the first 2)</span><br><span class="line">2,3,4 (using the second 2)</span><br><span class="line">2,2,3</span><br></pre></td></tr></table></figure>
-<p><strong>Note:</strong></p>
-<ol type="1">
-<li>The length of the given array won't exceed 1000.</li>
-<li>The integers in the given array are in the range of [0, 1000].</li>
-</ol>
-<h3 id="solution">Solution</h3>
-<p>The solution is similar to 3 Sum problem, where we use three pointers. Firstly, we sort the array in <strong>descending</strong> order. Then we use an traverse pointer k to indicate the longest side of triangle nums[k], and two pointers i, j to indicate the other 2 sides which initialized to k + 1 and nums.size()-1 respectively. When nums[i] + nums[j] &lt; nums[k], it's not a valid triangle, we should decrease j. Otherwise we know that there must be j-i valid combination, and the count is increased by j-i, then we test a smaller nums[i]+nums[j] by increasing i. The time complexity is <span class="math inline">\(O(n^2)\)</span>.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">triangleNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        sort(nums.begin(), nums.end(), greater&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">        <span class="keyword">if</span>(nums.size()&lt;<span class="number">3</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; nums.size()<span class="number">-2</span>; k++)&#123;</span><br><span class="line">            <span class="keyword">int</span> i = k + <span class="number">1</span>, j = nums.size()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i] + nums[j] &lt;= nums[k])&#123;</span><br><span class="line">                    j --;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    count += j - i;</span><br><span class="line">                    i ++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>array</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Valid Permutations for DI Sequence</title>
-    <url>/Valid-Permutations-for-DI-Sequence/</url>
+    <url>/leetcode/DP/Valid-Permutations-for-DI-Sequence/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
 <p>We are given <code>S</code>, a length <code>n</code> string of characters from the set <code>&#123;'D', 'I'&#125;</code>. (These letters stand for "decreasing" and "increasing".)</p>
 <p>A <em>valid permutation</em> is a permutation <code>P[0], P[1], ..., P[n]</code> of integers <code>&#123;0, 1, ..., n&#125;</code>, such that for all <code>i</code>:</p>
@@ -546,6 +504,48 @@
 <h3 id="code">Code</h3>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numPermsDISequence</span><span class="params">(<span class="built_in">string</span> S)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> MOD = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> n = S.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(n+<span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n+<span class="number">1</span>))</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n+<span class="number">1</span>; i ++)&#123;</span><br><span class="line">            dp[<span class="number">0</span>][i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n+<span class="number">1</span>; i ++)&#123;</span><br><span class="line">            <span class="keyword">int</span> cur = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(S[i<span class="number">-1</span>] == <span class="string">&#x27;I&#x27;</span>)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n - i + <span class="number">1</span>; j ++)&#123;</span><br><span class="line">                    dp[i][j] = (dp[i<span class="number">-1</span>][j] + cur)%MOD;</span><br><span class="line">                    cur = (cur + dp[i<span class="number">-1</span>][j]) % MOD;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = n - i; j &gt;= <span class="number">0</span>; j --)&#123;</span><br><span class="line">                    dp[i][j] = (dp[i<span class="number">-1</span>][j+<span class="number">1</span>] + cur) % MOD;</span><br><span class="line">                    cur = (cur+dp[i<span class="number">-1</span>][j+<span class="number">1</span>]) % MOD;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp[n][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="section"></h3>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>DP</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Valid Triangle Numer</title>
+    <url>/leetcode/array/Valid-Triangle-Numer/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given an array consists of non-negative integers, your task is to count the number of triplets chosen from the array that can make triangles if we take them as side lengths of a triangle.</p>
+<a id="more"></a>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: [2,2,3,4]</span><br><span class="line">Output: 3</span><br><span class="line">Explanation:</span><br><span class="line">Valid combinations are: </span><br><span class="line">2,3,4 (using the first 2)</span><br><span class="line">2,3,4 (using the second 2)</span><br><span class="line">2,2,3</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol type="1">
+<li>The length of the given array won't exceed 1000.</li>
+<li>The integers in the given array are in the range of [0, 1000].</li>
+</ol>
+<h3 id="solution">Solution</h3>
+<p>The solution is similar to 3 Sum problem, where we use three pointers. Firstly, we sort the array in <strong>descending</strong> order. Then we use an traverse pointer k to indicate the longest side of triangle nums[k], and two pointers i, j to indicate the other 2 sides which initialized to k + 1 and nums.size()-1 respectively. When nums[i] + nums[j] &lt; nums[k], it's not a valid triangle, we should decrease j. Otherwise we know that there must be j-i valid combination, and the count is increased by j-i, then we test a smaller nums[i]+nums[j] by increasing i. The time complexity is <span class="math inline">\(O(n^2)\)</span>.</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">triangleNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        sort(nums.begin(), nums.end(), greater&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">        <span class="keyword">if</span>(nums.size()&lt;<span class="number">3</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; nums.size()<span class="number">-2</span>; k++)&#123;</span><br><span class="line">            <span class="keyword">int</span> i = k + <span class="number">1</span>, j = nums.size()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i] + nums[j] &lt;= nums[k])&#123;</span><br><span class="line">                    j --;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    count += j - i;</span><br><span class="line">                    i ++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>array</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Palindrome Partitioning</title>
+    <url>/leetcode/DP/Palindrome-Partitioning/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given a string <em>s</em>, partition <em>s</em> such that every substring of the partition is a palindrome.</p>
+<p>Return all possible palindrome partitioning of <em>s</em>.</p>
+<a id="more"></a>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: &quot;aab&quot;</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;aa&quot;,&quot;b&quot;],</span><br><span class="line">  [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="solution">Solution</h3>
+<p>Dynamic programming and back tracking. Pay attention to the initialization of <code>dp</code> array and the updating order, i.e. <code>i</code> from <code>0</code> to <code>n</code> and <code>j</code> from <code>0</code> to <code>i</code>.</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>( s[i] == s[j] &amp;&amp; (i - j &lt;= <span class="number">1</span> || dp[j+<span class="number">1</span>][i<span class="number">-1</span>]))&#123;</span><br><span class="line">                    dp[j][i] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; trace;</span><br><span class="line">        back_track(s, <span class="number">0</span>, trace, ans, dp);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">back_track</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">int</span> begin, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;trace, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;ans, <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>])</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">if</span>(begin &gt;= n)&#123;</span><br><span class="line">            ans.push_back(trace);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; begin + j &lt; n; j ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[begin][begin+j])&#123;</span><br><span class="line">                trace.push_back(s.substr(begin, j+<span class="number">1</span>));</span><br><span class="line">                back_track(s, begin+j+<span class="number">1</span>, trace, ans, dp);</span><br><span class="line">                trace.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>leetcode</category>
