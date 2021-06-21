@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="前言 最近在学习《Linux程序设计》这本书，刚看完第二章有关shell脚本的部分。虽然很早之前就接触了linux，但其实对于shell和UNIX的设计哲学一直是半懂不懂的，正好借着这个机会重新梳理一下有关shell的一些细节，基本想到哪就写到哪吧，写的也主要是自己的理解，如果有不对的地方欢迎指正。有趣的是这本书的两位翻译者都是我校的教授，我还上过其中一位的网络攻防这门课，当时也学到了很多linu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有关shell的一些杂谈">
+<meta property="og:url" content="http://example.com/Linux/%E6%9C%89%E5%85%B3shell%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/index.html">
+<meta property="og:site_name" content="白日梦研究所">
+<meta property="og:description" content="前言 最近在学习《Linux程序设计》这本书，刚看完第二章有关shell脚本的部分。虽然很早之前就接触了linux，但其实对于shell和UNIX的设计哲学一直是半懂不懂的，正好借着这个机会重新梳理一下有关shell的一些细节，基本想到哪就写到哪吧，写的也主要是自己的理解，如果有不对的地方欢迎指正。有趣的是这本书的两位翻译者都是我校的教授，我还上过其中一位的网络攻防这门课，当时也学到了很多linu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1grq6h47d48j319p0u0wg6.jpg">
+<meta property="article:published_time" content="2021-06-21T12:29:09.000Z">
+<meta property="article:modified_time" content="2021-06-21T15:02:22.981Z">
+<meta property="article:author" content="L&#39;étranger">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1grq6h47d48j319p0u0wg6.jpg">
+
+
+<link rel="canonical" href="http://example.com/Linux/%E6%9C%89%E5%85%B3shell%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>有关shell的一些杂谈 | 白日梦研究所</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">白日梦研究所</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFshell"><span class="nav-number">2.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8shell"><span class="nav-number">3.</span> <span class="nav-text">为什么要使用shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">Shell的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">4.1.</span> <span class="nav-text">环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E8%84%9A%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">shell脚本</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">L'étranger</p>
+  <div class="site-description" itemprop="description">理想主义者的坟墓</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/Linux/%E6%9C%89%E5%85%B3shell%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="L'étranger">
+      <meta itemprop="description" content="理想主义者的坟墓">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白日梦研究所">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          有关shell的一些杂谈
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-06-21 20:29:09 / 修改时间：23:02:22" itemprop="dateCreated datePublished" datetime="2021-06-21T20:29:09+08:00">2021-06-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">评论数：</span>
+    
+    <a title="valine" href="/Linux/%E6%9C%89%E5%85%B3shell%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Linux/%E6%9C%89%E5%85%B3shell%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言">前言</h2>
+<p>最近在学习《Linux程序设计》这本书，刚看完第二章有关shell脚本的部分。虽然很早之前就接触了linux，但其实对于shell和UNIX的设计哲学一直是半懂不懂的，正好借着这个机会重新梳理一下有关shell的一些细节，基本想到哪就写到哪吧，写的也主要是自己的理解，如果有不对的地方欢迎指正。有趣的是这本书的两位翻译者都是我校的教授，我还上过其中一位的<em>网络攻防</em>这门课，当时也学到了很多linux的小知识，还当了一次小小的hacker，算是本科上的为数不多的有意思的课程之一。</p>
+<h2 id="什么是shell">什么是Shell</h2>
+<p>刚接触linux的同学很容易就把terminal和shell混淆，事实上它们是完全不同的两个概念。我的理解是terminal是调用shell的程序，它的任务是实际上是将用户的输入传递给shell，然后再把shell的输出显示到屏幕上。一个或许不那么恰当的理解是terminal实际上是键盘和屏幕的“驱动程序”，真正和系统内核打交道的才是shell。</p>
+<p>举个例子，MacOS上的iTerm2是一个terminal程序，它负责调用系统中安装的shell，例如zsh、bash等，我们可以对terminal的外观进行设置，例如我的terminal长这样</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1grq6h47d48j319p0u0wg6.jpg" style="zoom: 50%;" /></p>
+<p>字体的颜色、背景等属于terminal的设置，包括一些快捷键，例如⌥+←进行光标的跳转等，应该都是terminal的操作。而像是prompt提示符等，则是通过设置shell的环境变量达到的。</p>
+<h2 id="为什么要使用shell">为什么要使用shell</h2>
+<p>原因当然是shell本身可以调用丰富的命令行工具，并通过管道、输入输出重定向等实现不同工具的组合，从而实现强大的功能。举个例子，假设我想查找当前目录下所有文件名以test开头，且文件中包含“hello, world"字符串的文件，如果使用python编写脚本的话，没有十几行代码应该是很难搞定的（当然你可以把所有代码都写在一行里2333），但假如使用命令行工具的话，只需要一条命令就可以完成这个任务:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -name <span class="string">&#x27;test*&#x27;</span> -<span class="built_in">type</span> f -<span class="built_in">exec</span> grep -H <span class="string">&quot;hello, world&quot;</span> &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+<p>在这个例子里我使用了通配符<code>*</code>，它和正则表达式里的<code>*</code>很像，都可以匹配任意长度的字符串，但这里使用的实际上是<strong>glob</strong>语法，相比于正则表达式要更简单一些，如果要让<code>find</code>使用正则表达式，则需要使用<code>-regex</code>选项。</p>
+<p>上面的例子只涉及到一个命令行工具，当我们需要多个命令行工具来组成一套流程的话，可以使用管道 (pipeline)<code>|</code>来将上一个程序的输出作为下一个程序的输入。众所周知，进程之间是没有共享内存的，假如没有管道而我们又想让多个命令行组合在一起的话，最直接的做法是将上一个程序的输入写入临时文件-&gt;下一个程序读取临时文件-&gt;删除临时文件，但显然这种做法的效率将是极为低效的。下面这个例子将显示系统中所有的进程，并将它们进行排序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps | sort	</span><br></pre></td></tr></table></figure>
+<p>shell的另一个特性是输入输出的重定向，在linux系统之中，一切皆文件，标准输入/输出也不例外，它们的文件描述符分别是0和1，标准错误输出的文件描述符是3。我们可以使用<code>&gt;</code>对输出重定向，使用<code>&lt;</code>对输入进行重定向。例如，我们不想要程序输入任何东西时，就可以这么做:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;hello&quot;</span> 1&gt;/dev/null	2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<p>上面这个例子有两个需要注意的地方：</p>
+<ol type="1">
+<li>输出重定向的顺序，我们先将stderr重定向到stdout，然后在将stdout重定向到黑洞文件<code>/dev/null</code>，反应在命令行之中的顺序则是反过来的。</li>
+<li>将重定向到标准输出的时候需要使用<code>&gt;&amp;</code>，使用<code>&gt;</code>则会重定向到名为<code>1</code>的文件。</li>
+</ol>
+<h2 id="shell的原理">Shell的原理</h2>
+<p>关于这部分其实我也了解的不是很多，只能凭借当初上操作系统课程时的老师讲到的一点点相关知识进行推断，以后有时间的话应该会去深入地了解。</p>
+<p>上面说过，shell本身也是一个程序，那么它是怎么调用其他程序的呢？在上操作系统课的时候，我们实现过内核的一个函数<code>fork</code>，它的工作是复制出一个和当前进程状态完全相同，只有pid不同的一个子进程，它就是关键之处。当我们告诉shell要执行某个命令行工具的时候，当前的shell会fork出一个子进程，然后子进程调用<code>exec</code>函数（又一个内核函数）替换掉自己，此时父进程在等待子进程执行结束。之所以这么做是因为父进程（i.e. shell）不想结束自己，因为我们通常希望执行完一条命令之后还能回到shell，进行进一步的交互。</p>
+<p>以上过程适用于外部命令，例如<code>/usr/bin/</code>目录下的命令。shell本身也会有一些内置的命令，比如<code>cd</code>，<code>echo</code>等命令就是内置命令，当执行内置命令时，shell并不会调用<code>fork</code>复制出一个子进程，而是在当前shell内直接执行。</p>
+<h3 id="环境变量">环境变量</h3>
+<p>上面说到shell在执行外部命令时会先复制出一个子进程，子进程会继承父进程的一切状态，那么为什么我们还需要显示地<code>export</code>变量呢？例如我们在当前的shell中设置一个变量<code>foo="bar"</code>，然后调用子脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$foo</span></span><br></pre></td></tr></table></figure>
+<p>，结果却是没有任何输出，这是为何？原因在于我们设置的是shell变量，它与环境变量不同的是，shell变量不会传递给<code>exec</code>执行的程序。</p>
+<blockquote>
+<p>Everything is inherited by children processes as children are created as a fork (an exact copy) of their parent. The point with environment variables is that they are passed to the <code>execve()</code> system call so are (typically) used to persist data over the <em>execution</em> of other commands (in the same process).</p>
+</blockquote>
+<h2 id="shell脚本">shell脚本</h2>
+<p>未完待续...</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/shell/" rel="tag"># shell</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/uncategorized/Convex-Smooth-Function/" rel="prev" title="Convex Smooth Function">
+                  <i class="fa fa-chevron-left"></i> Convex Smooth Function
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">L'étranger</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.0/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: "/Linux/%E6%9C%89%E5%85%B3shell%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/",
+    }, {"enable":true,"appId":"gnLbav9SxJu3fzoFUjwqyhO8-gzGzoHsz","appKey":"DJOmzWf8yE2QpddERxH2d0GI","placeholder":"Long may the sunshine!","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
+    ));
+  }, window.Valine);
+});
+</script>
+
+  
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script async src="/js/cursor/explosion.min.js"></script>
+  <script async src="/js/cursor/explosion.js"></script>
+
+
+ 
+</body>
+</html>

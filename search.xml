@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Convex Smooth Function</title>
+    <url>/uncategorized/Convex-Smooth-Function/</url>
+    <content><![CDATA[<h2 id="convex-smooth-function">Convex Smooth Function</h2>
+<p>A function <span class="math inline">\(f\)</span> is <em>convex</em> if and only if <span class="math inline">\(f\)</span> is defined on a convex set <span class="math inline">\(\mathcal{D}\)</span> and the following condition holds <span class="math inline">\(\forall x,y \in \mathcal{D}\)</span>: <span class="math display">\[
+f(x + \alpha(y-x)) \leq \alpha f(y)+(1-\alpha)f(x),
+\]</span> where <span class="math inline">\(\alpha \in [0,1]\)</span>.</p>
+<p>If <span class="math inline">\(f\)</span> is differentiable, then the above equation is equivalently saying that <span class="math display">\[
+f(y) \geq f(x) + \nabla f(x)^T(y-x).
+\]</span> If the inequality <span class="math display">\[
+\left\| \nabla f(x) - \nabla f(y) \right\| \leq L\left\| x- y \right\|
+\]</span> is also satisfied, we also say that <span class="math inline">\(f\)</span> is <em>L-Lipschitz smooth</em>. There is an equivalent inequality about the L-Lipschitz condition which is commonly used: <span class="math display">\[
+f(y) \leq f(x) + \nabla f(x)^T(y-x) + \frac{L}{2}\left\| x-y\right\|^2.
+\]</span> <em>Proof.</em></p>
+<p>Trivial.</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>有关shell的一些杂谈</title>
+    <url>/Linux/%E6%9C%89%E5%85%B3shell%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>最近在学习《Linux程序设计》这本书，刚看完第二章有关shell脚本的部分。虽然很早之前就接触了linux，但其实对于shell和UNIX的设计哲学一直是半懂不懂的，正好借着这个机会重新梳理一下有关shell的一些细节，基本想到哪就写到哪吧，写的也主要是自己的理解，如果有不对的地方欢迎指正。有趣的是这本书的两位翻译者都是我校的教授，我还上过其中一位的<em>网络攻防</em>这门课，当时也学到了很多linux的小知识，还当了一次小小的hacker，算是本科上的为数不多的有意思的课程之一。</p>
+<h2 id="什么是shell">什么是Shell</h2>
+<p>刚接触linux的同学很容易就把terminal和shell混淆，事实上它们是完全不同的两个概念。我的理解是terminal是调用shell的程序，它的任务是实际上是将用户的输入传递给shell，然后再把shell的输出显示到屏幕上。一个或许不那么恰当的理解是terminal实际上是键盘和屏幕的“驱动程序”，真正和系统内核打交道的才是shell。</p>
+<p>举个例子，MacOS上的iTerm2是一个terminal程序，它负责调用系统中安装的shell，例如zsh、bash等，我们可以对terminal的外观进行设置，例如我的terminal长这样</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1grq6h47d48j319p0u0wg6.jpg" style="zoom: 50%;" /></p>
+<p>字体的颜色、背景等属于terminal的设置，包括一些快捷键，例如⌥+←进行光标的跳转等，应该都是terminal的操作。而像是prompt提示符等，则是通过设置shell的环境变量达到的。</p>
+<h2 id="为什么要使用shell">为什么要使用shell</h2>
+<p>原因当然是shell本身可以调用丰富的命令行工具，并通过管道、输入输出重定向等实现不同工具的组合，从而实现强大的功能。举个例子，假设我想查找当前目录下所有文件名以test开头，且文件中包含“hello, world"字符串的文件，如果使用python编写脚本的话，没有十几行代码应该是很难搞定的（当然你可以把所有代码都写在一行里2333），但假如使用命令行工具的话，只需要一条命令就可以完成这个任务:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find . -name <span class="string">&#x27;test*&#x27;</span> -<span class="built_in">type</span> f -<span class="built_in">exec</span> grep -H <span class="string">&quot;hello, world&quot;</span> &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+<p>在这个例子里我使用了通配符<code>*</code>，它和正则表达式里的<code>*</code>很像，都可以匹配任意长度的字符串，但这里使用的实际上是<strong>glob</strong>语法，相比于正则表达式要更简单一些，如果要让<code>find</code>使用正则表达式，则需要使用<code>-regex</code>选项。</p>
+<p>上面的例子只涉及到一个命令行工具，当我们需要多个命令行工具来组成一套流程的话，可以使用管道 (pipeline)<code>|</code>来将上一个程序的输出作为下一个程序的输入。众所周知，进程之间是没有共享内存的，假如没有管道而我们又想让多个命令行组合在一起的话，最直接的做法是将上一个程序的输入写入临时文件-&gt;下一个程序读取临时文件-&gt;删除临时文件，但显然这种做法的效率将是极为低效的。下面这个例子将显示系统中所有的进程，并将它们进行排序：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ps | sort	</span><br></pre></td></tr></table></figure>
+<p>shell的另一个特性是输入输出的重定向，在linux系统之中，一切皆文件，标准输入/输出也不例外，它们的文件描述符分别是0和1，标准错误输出的文件描述符是3。我们可以使用<code>&gt;</code>对输出重定向，使用<code>&lt;</code>对输入进行重定向。例如，我们不想要程序输入任何东西时，就可以这么做:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;hello&quot;</span> 1&gt;/dev/null	2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<p>上面这个例子有两个需要注意的地方：</p>
+<ol type="1">
+<li>输出重定向的顺序，我们先将stderr重定向到stdout，然后在将stdout重定向到黑洞文件<code>/dev/null</code>，反应在命令行之中的顺序则是反过来的。</li>
+<li>将重定向到标准输出的时候需要使用<code>&gt;&amp;</code>，使用<code>&gt;</code>则会重定向到名为<code>1</code>的文件。</li>
+</ol>
+<h2 id="shell的原理">Shell的原理</h2>
+<p>关于这部分其实我也了解的不是很多，只能凭借当初上操作系统课程时的老师讲到的一点点相关知识进行推断，以后有时间的话应该会去深入地了解。</p>
+<p>上面说过，shell本身也是一个程序，那么它是怎么调用其他程序的呢？在上操作系统课的时候，我们实现过内核的一个函数<code>fork</code>，它的工作是复制出一个和当前进程状态完全相同，只有pid不同的一个子进程，它就是关键之处。当我们告诉shell要执行某个命令行工具的时候，当前的shell会fork出一个子进程，然后子进程调用<code>exec</code>函数（又一个内核函数）替换掉自己，此时父进程在等待子进程执行结束。之所以这么做是因为父进程（i.e. shell）不想结束自己，因为我们通常希望执行完一条命令之后还能回到shell，进行进一步的交互。</p>
+<p>以上过程适用于外部命令，例如<code>/usr/bin/</code>目录下的命令。shell本身也会有一些内置的命令，比如<code>cd</code>，<code>echo</code>等命令就是内置命令，当执行内置命令时，shell并不会调用<code>fork</code>复制出一个子进程，而是在当前shell内直接执行。</p>
+<h3 id="环境变量">环境变量</h3>
+<p>上面说到shell在执行外部命令时会先复制出一个子进程，子进程会继承父进程的一切状态，那么为什么我们还需要显示地<code>export</code>变量呢？例如我们在当前的shell中设置一个变量<code>foo="bar"</code>，然后调用子脚本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$foo</span></span><br></pre></td></tr></table></figure>
+<p>，结果却是没有任何输出，这是为何？原因在于我们设置的是shell变量，它与环境变量不同的是，shell变量不会传递给<code>exec</code>执行的程序。</p>
+<blockquote>
+<p>Everything is inherited by children processes as children are created as a fork (an exact copy) of their parent. The point with environment variables is that they are passed to the <code>execve()</code> system call so are (typically) used to persist data over the <em>execution</em> of other commands (in the same process).</p>
+</blockquote>
+<h2 id="shell脚本">shell脚本</h2>
+<p>未完待续...</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Best Time to Buy and Sell Stock with Transaction Fee</title>
     <url>/leetcode/DP/Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
@@ -116,6 +178,38 @@
       </categories>
   </entry>
   <entry>
+    <title>Flip Columns For Maximum Number of Equal Rows</title>
+    <url>/leetcode/math/Flip-Columns-For-Maximum-Number-of-Equal-Rows/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given a <code>matrix</code> consisting of 0s and 1s, we may choose any number of columns in the matrix and flip <strong>every</strong> cell in that column. Flipping a cell changes the value of that cell from 0 to 1 or from 1 to 0.</p>
+<p>Return the maximum number of rows that have all values equal after some number of flips.</p>
+<a id="more"></a>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: [[0,1],[1,1]]</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: After flipping no values, 1 row has all values equal.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: [[0,1],[1,0]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: After flipping values in the first column, both rows have equal values.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: [[0,0,0],[0,0,1],[1,1,0]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: After flipping values in the first two columns, the last two rows have equal values.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol type="1">
+<li><code>1 &lt;= matrix.length &lt;= 300</code></li>
+<li><code>1 &lt;= matrix[i].length &lt;= 300</code></li>
+<li>All <code>matrix[i].length</code>'s are equal</li>
+<li><code>matrix[i][j]</code> is <code>0</code> or <code>1</code></li>
+</ol>
+<h3 id="solution">Solution</h3>
+<p>Notice that the maximum number of equal rows after flipping columns is equal to the maximum number of <em>identical</em> or <em>flipped identical</em> row pairs. For example:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[1,0,0,1,0]                                                       [0,0,0,0,0]  &#x2F;&#x2F; all-0s</span><br><span class="line">[1,0,0,1,0]  after flipping every cell in 0-th and 3-th columns   [0,0,0,0,0]  &#x2F;&#x2F; all-0s</span><br><span class="line">[1,0,1,1,1] ----------------------------------------------------&gt; [0,0,1,0,1]</span><br><span class="line">[0,1,1,0,1]                                                       [1,1,1,1,1]  &#x2F;&#x2F; all-1s</span><br><span class="line">[1,0,0,1,1]                                                       [0,0,0,0,1]</span><br><span class="line"></span><br><span class="line">1st, 2nd, and 4th rows have all values equal.</span><br></pre></td></tr></table></figure>
+<p>Then we turn the original matrix into vector of strings and use <code>unordered_map</code> to do the counting.</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxEqualRowsAfterFlips</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; str_mat ,str_fmat;</span><br><span class="line">        mat2str(matrix, str_mat);</span><br><span class="line">        mat2str(matrix, str_fmat, <span class="literal">true</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">string</span> str:str_mat)&#123;</span><br><span class="line">            m[str] ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">string</span> str:str_fmat)&#123;</span><br><span class="line">            m[str] ++;</span><br><span class="line">            <span class="keyword">if</span>(m[str] &gt; ans) ans = m[str];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mat2str</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;mat, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; ret, <span class="keyword">bool</span> filp = <span class="literal">false</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = mat.size(), n = mat[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">            <span class="built_in">string</span> tmp = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j ++)&#123;</span><br><span class="line">                tmp += <span class="keyword">char</span>(mat[i][j] ^ filp + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            ret.push_back(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>math</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/uncategorized/Hello-Hexo/</url>
     <content><![CDATA[<p>The game is on!</p>
@@ -178,25 +272,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Palindrome Partitioning</title>
-    <url>/leetcode/DP/Palindrome-Partitioning/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given a string <em>s</em>, partition <em>s</em> such that every substring of the partition is a palindrome.</p>
-<p>Return all possible palindrome partitioning of <em>s</em>.</p>
-<a id="more"></a>
-<p><strong>Example:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: &quot;aab&quot;</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;aa&quot;,&quot;b&quot;],</span><br><span class="line">  [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h3 id="solution">Solution</h3>
-<p>Dynamic programming and back tracking. Pay attention to the initialization of <code>dp</code> array and the updating order, i.e. <code>i</code> from <code>0</code> to <code>n</code> and <code>j</code> from <code>0</code> to <code>i</code>.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>( s[i] == s[j] &amp;&amp; (i - j &lt;= <span class="number">1</span> || dp[j+<span class="number">1</span>][i<span class="number">-1</span>]))&#123;</span><br><span class="line">                    dp[j][i] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; trace;</span><br><span class="line">        back_track(s, <span class="number">0</span>, trace, ans, dp);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">back_track</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">int</span> begin, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;trace, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;ans, <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>])</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">if</span>(begin &gt;= n)&#123;</span><br><span class="line">            ans.push_back(trace);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; begin + j &lt; n; j ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[begin][begin+j])&#123;</span><br><span class="line">                trace.push_back(s.substr(begin, j+<span class="number">1</span>));</span><br><span class="line">                back_track(s, begin+j+<span class="number">1</span>, trace, ans, dp);</span><br><span class="line">                trace.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>DP</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Palindrome Partitioning II</title>
     <url>/leetcode/DP/Palindrome-Partitioning-II/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
@@ -218,6 +293,25 @@
 <p>Dynamic programming, using <code>min_cut</code> to indicate the minimum cut of the first k letters. Traverse from left to right using pointer <span class="math inline">\(i\)</span>, and find the palindrome string centered at <code>i</code>. When find one, the min_cut of right end of the palindrome string is equal to <code>min(min_cut[left_end-1]+1, min_cut[right_end])</code>. Since min_cut is updated from left to right, the <code>min_cut[left_end-1]</code> is calculated properly when we use it. Finally, we return the <code>min_cut[n]</code> as the result, where <code>n</code> is the length of string <code>s</code>.</p>
 <h3 id="code">Code</h3>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minCut</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">min_cut</span><span class="params">(n+<span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i ++) min_cut[i] = i<span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; i+j<span class="number">-1</span>&lt;n &amp;&amp; i-j&gt;=<span class="number">1</span> &amp;&amp; s[i-j<span class="number">-1</span>]==s[i+j<span class="number">-1</span>]; j ++ )&#123;</span><br><span class="line">                min_cut[i+j] = min(min_cut[i+j], min_cut[i-j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; i-j&gt;=<span class="number">1</span> &amp;&amp; i+j &lt;n &amp;&amp; s[i-j<span class="number">-1</span>]==s[i+j]; j ++)&#123;</span><br><span class="line">                min_cut[i+j+<span class="number">1</span>] = min(min_cut[i+j+<span class="number">1</span>], min_cut[i-j<span class="number">-1</span>]+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> min_cut[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>DP</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Palindrome Partitioning</title>
+    <url>/leetcode/DP/Palindrome-Partitioning/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given a string <em>s</em>, partition <em>s</em> such that every substring of the partition is a palindrome.</p>
+<p>Return all possible palindrome partitioning of <em>s</em>.</p>
+<a id="more"></a>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: &quot;aab&quot;</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;aa&quot;,&quot;b&quot;],</span><br><span class="line">  [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="solution">Solution</h3>
+<p>Dynamic programming and back tracking. Pay attention to the initialization of <code>dp</code> array and the updating order, i.e. <code>i</code> from <code>0</code> to <code>n</code> and <code>j</code> from <code>0</code> to <code>i</code>.</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">partition</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>( s[i] == s[j] &amp;&amp; (i - j &lt;= <span class="number">1</span> || dp[j+<span class="number">1</span>][i<span class="number">-1</span>]))&#123;</span><br><span class="line">                    dp[j][i] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; trace;</span><br><span class="line">        back_track(s, <span class="number">0</span>, trace, ans, dp);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">back_track</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">int</span> begin, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;trace, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;ans, <span class="keyword">bool</span> dp[<span class="number">1000</span>][<span class="number">1000</span>])</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">if</span>(begin &gt;= n)&#123;</span><br><span class="line">            ans.push_back(trace);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; begin + j &lt; n; j ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[begin][begin+j])&#123;</span><br><span class="line">                trace.push_back(s.substr(begin, j+<span class="number">1</span>));</span><br><span class="line">                back_track(s, begin+j+<span class="number">1</span>, trace, ans, dp);</span><br><span class="line">                trace.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>leetcode</category>
@@ -379,54 +473,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Unique Binary Search Trees</title>
-    <url>/leetcode/math/combinatorics/Unique-Binary-Search-Trees/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given <em>n</em>, how many structurally unique <strong>BST's</strong> (binary search trees) that store values 1 ... <em>n</em>?</p>
-<a id="more"></a>
-<p><strong>Example:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: 3</span><br><span class="line">Output: 5</span><br><span class="line">Explanation:</span><br><span class="line">Given n &#x3D; 3, there are a total of 5 unique BST&#39;s:</span><br><span class="line"></span><br><span class="line">   1         3     3      2      1</span><br><span class="line">    \       &#x2F;     &#x2F;      &#x2F; \      \</span><br><span class="line">     3     2     1      1   3      2</span><br><span class="line">    &#x2F;     &#x2F;       \                 \</span><br><span class="line">   2     1         2                 3</span><br></pre></td></tr></table></figure>
-<p><strong>Constraints:</strong></p>
-<ul>
-<li><code>1 &lt;= n &lt;= 19</code></li>
-</ul>
-<h3 id="solution">Solution</h3>
-<p>Obviously, the answer is Catalan Number. But how to calculate it? One way is to use the close formula: <span class="math inline">\(C(n) = \frac{1}{n+1}\binom{2n}{n}\)</span>. When we calculate the binomial coefficient <span class="math inline">\(\binom{2n}{n}\)</span> in a iteration, the update expression is <code>ans = ans*i/(i-n)</code>, where <code>i</code> is from <code>n+1</code> to <code>2n</code>. But, why the <code>ans</code> is always integer? More general, why the binomial coefficient is always integer? It seems trivial, since we can easily justify it by retrospecting the definition of binomial coefficient. However when we look at the formula of binomial coefficient, <span class="math inline">\(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</span>, the fact become non-trivial. The idea to prove it via pure mathematic method is using the iterative formula <span class="math inline">\(\binom{n}{k} = \binom{n-1}{k} + \binom{n-1}{k-1}\)</span> and reduce the original to base case, i.e. using mathematic induction.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n+<span class="number">1</span>; i &lt;= <span class="number">2</span>*n; i ++)&#123;</span><br><span class="line">            ans = ans * i / (i-n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans/(n+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>math</category>
-        <category>combinatorics</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Sum of Nodes with Even-Valued Grandparent</title>
-    <url>/leetcode/binary-tree/Sum-of-Nodes-with-Even-Valued-Grandparent/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given a binary tree, return the sum of values of nodes with even-valued grandparent. (A <em>grandparent</em> of a node is the parent of its parent, if it exists.)</p>
-<p>If there are no nodes with an even-valued grandparent, return <code>0</code>.</p>
-<a id="more"></a>
-<p><strong>Example 1</strong>:</p>
-<p><img src=https://assets.leetcode.com/uploads/2019/07/24/1473_ex1.png align='left'/></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: root &#x3D; [6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]</span><br><span class="line">Output: 18</span><br><span class="line">Explanation: The red nodes are the nodes with even-value grandparent while the blue nodes are the even-value grandparents.</span><br></pre></td></tr></table></figure>
-<p><strong>Constraints</strong></p>
-<ul>
-<li>The number of nodes in the tree is between <code>1</code> and <code>10^4</code>.</li>
-<li>The value of nodes is between <code>1</code> and <code>100</code>.</li>
-</ul>
-<h2 id="solution">Solution</h2>
-<p>Traversal with two flags marking whether parent and grandparent are even or not.</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sumEvenGrandparent</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        helper(root, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode *root, <span class="keyword">int</span> peven, <span class="keyword">int</span> gpeven)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(gpeven == <span class="number">1</span>)&#123;</span><br><span class="line">            sum += root-&gt;val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> cureven = root-&gt;val %<span class="number">2</span>==<span class="number">0</span>? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">        helper(root-&gt;left, cureven, peven);</span><br><span class="line">        helper(root-&gt;right, cureven, peven);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>binary tree</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Stone Game IV</title>
     <url>/leetcode/DP/Stone-Game-IV/</url>
     <content><![CDATA[<h3 id="description">Description</h3>
@@ -457,6 +503,54 @@
       <categories>
         <category>leetcode</category>
         <category>DP</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Sum of Nodes with Even-Valued Grandparent</title>
+    <url>/leetcode/binary-tree/Sum-of-Nodes-with-Even-Valued-Grandparent/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given a binary tree, return the sum of values of nodes with even-valued grandparent. (A <em>grandparent</em> of a node is the parent of its parent, if it exists.)</p>
+<p>If there are no nodes with an even-valued grandparent, return <code>0</code>.</p>
+<a id="more"></a>
+<p><strong>Example 1</strong>:</p>
+<p><img src=https://assets.leetcode.com/uploads/2019/07/24/1473_ex1.png align='left'/></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: root &#x3D; [6,7,8,2,7,1,3,9,null,1,4,null,null,null,5]</span><br><span class="line">Output: 18</span><br><span class="line">Explanation: The red nodes are the nodes with even-value grandparent while the blue nodes are the even-value grandparents.</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints</strong></p>
+<ul>
+<li>The number of nodes in the tree is between <code>1</code> and <code>10^4</code>.</li>
+<li>The value of nodes is between <code>1</code> and <code>100</code>.</li>
+</ul>
+<h2 id="solution">Solution</h2>
+<p>Traversal with two flags marking whether parent and grandparent are even or not.</p>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sumEvenGrandparent</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        helper(root, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode *root, <span class="keyword">int</span> peven, <span class="keyword">int</span> gpeven)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(gpeven == <span class="number">1</span>)&#123;</span><br><span class="line">            sum += root-&gt;val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> cureven = root-&gt;val %<span class="number">2</span>==<span class="number">0</span>? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">        helper(root-&gt;left, cureven, peven);</span><br><span class="line">        helper(root-&gt;right, cureven, peven);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>binary tree</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Unique Binary Search Trees</title>
+    <url>/leetcode/math/combinatorics/Unique-Binary-Search-Trees/</url>
+    <content><![CDATA[<h3 id="description">Description</h3>
+<p>Given <em>n</em>, how many structurally unique <strong>BST's</strong> (binary search trees) that store values 1 ... <em>n</em>?</p>
+<a id="more"></a>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: 3</span><br><span class="line">Output: 5</span><br><span class="line">Explanation:</span><br><span class="line">Given n &#x3D; 3, there are a total of 5 unique BST&#39;s:</span><br><span class="line"></span><br><span class="line">   1         3     3      2      1</span><br><span class="line">    \       &#x2F;     &#x2F;      &#x2F; \      \</span><br><span class="line">     3     2     1      1   3      2</span><br><span class="line">    &#x2F;     &#x2F;       \                 \</span><br><span class="line">   2     1         2                 3</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 19</code></li>
+</ul>
+<h3 id="solution">Solution</h3>
+<p>Obviously, the answer is Catalan Number. But how to calculate it? One way is to use the close formula: <span class="math inline">\(C(n) = \frac{1}{n+1}\binom{2n}{n}\)</span>. When we calculate the binomial coefficient <span class="math inline">\(\binom{2n}{n}\)</span> in a iteration, the update expression is <code>ans = ans*i/(i-n)</code>, where <code>i</code> is from <code>n+1</code> to <code>2n</code>. But, why the <code>ans</code> is always integer? More general, why the binomial coefficient is always integer? It seems trivial, since we can easily justify it by retrospecting the definition of binomial coefficient. However when we look at the formula of binomial coefficient, <span class="math inline">\(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</span>, the fact become non-trivial. The idea to prove it via pure mathematic method is using the iterative formula <span class="math inline">\(\binom{n}{k} = \binom{n-1}{k} + \binom{n-1}{k-1}\)</span> and reduce the original to base case, i.e. using mathematic induction.</p>
+<h3 id="code">Code</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n+<span class="number">1</span>; i &lt;= <span class="number">2</span>*n; i ++)&#123;</span><br><span class="line">            ans = ans * i / (i-n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans/(n+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+        <category>math</category>
+        <category>combinatorics</category>
       </categories>
   </entry>
   <entry>
@@ -550,38 +644,6 @@
       <categories>
         <category>leetcode</category>
         <category>array</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Flip Columns For Maximum Number of Equal Rows</title>
-    <url>/leetcode/math/Flip-Columns-For-Maximum-Number-of-Equal-Rows/</url>
-    <content><![CDATA[<h3 id="description">Description</h3>
-<p>Given a <code>matrix</code> consisting of 0s and 1s, we may choose any number of columns in the matrix and flip <strong>every</strong> cell in that column. Flipping a cell changes the value of that cell from 0 to 1 or from 1 to 0.</p>
-<p>Return the maximum number of rows that have all values equal after some number of flips.</p>
-<a id="more"></a>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: [[0,1],[1,1]]</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: After flipping no values, 1 row has all values equal.</span><br></pre></td></tr></table></figure>
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: [[0,1],[1,0]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: After flipping values in the first column, both rows have equal values.</span><br></pre></td></tr></table></figure>
-<p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: [[0,0,0],[0,0,1],[1,1,0]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: After flipping values in the first two columns, the last two rows have equal values.</span><br></pre></td></tr></table></figure>
-<p><strong>Note:</strong></p>
-<ol type="1">
-<li><code>1 &lt;= matrix.length &lt;= 300</code></li>
-<li><code>1 &lt;= matrix[i].length &lt;= 300</code></li>
-<li>All <code>matrix[i].length</code>'s are equal</li>
-<li><code>matrix[i][j]</code> is <code>0</code> or <code>1</code></li>
-</ol>
-<h3 id="solution">Solution</h3>
-<p>Notice that the maximum number of equal rows after flipping columns is equal to the maximum number of <em>identical</em> or <em>flipped identical</em> row pairs. For example:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[1,0,0,1,0]                                                       [0,0,0,0,0]  &#x2F;&#x2F; all-0s</span><br><span class="line">[1,0,0,1,0]  after flipping every cell in 0-th and 3-th columns   [0,0,0,0,0]  &#x2F;&#x2F; all-0s</span><br><span class="line">[1,0,1,1,1] ----------------------------------------------------&gt; [0,0,1,0,1]</span><br><span class="line">[0,1,1,0,1]                                                       [1,1,1,1,1]  &#x2F;&#x2F; all-1s</span><br><span class="line">[1,0,0,1,1]                                                       [0,0,0,0,1]</span><br><span class="line"></span><br><span class="line">1st, 2nd, and 4th rows have all values equal.</span><br></pre></td></tr></table></figure>
-<p>Then we turn the original matrix into vector of strings and use <code>unordered_map</code> to do the counting.</p>
-<h3 id="code">Code</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxEqualRowsAfterFlips</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; str_mat ,str_fmat;</span><br><span class="line">        mat2str(matrix, str_mat);</span><br><span class="line">        mat2str(matrix, str_fmat, <span class="literal">true</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">string</span> str:str_mat)&#123;</span><br><span class="line">            m[str] ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">string</span> str:str_fmat)&#123;</span><br><span class="line">            m[str] ++;</span><br><span class="line">            <span class="keyword">if</span>(m[str] &gt; ans) ans = m[str];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mat2str</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;mat, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; ret, <span class="keyword">bool</span> filp = <span class="literal">false</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = mat.size(), n = mat[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++)&#123;</span><br><span class="line">            <span class="built_in">string</span> tmp = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j ++)&#123;</span><br><span class="line">                tmp += <span class="keyword">char</span>(mat[i][j] ^ filp + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            ret.push_back(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-        <category>math</category>
       </categories>
   </entry>
 </search>
