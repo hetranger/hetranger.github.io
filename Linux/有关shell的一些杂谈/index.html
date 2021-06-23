@@ -34,9 +34,8 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1grq6h47d48j319p0u0wg6.jpg">
 <meta property="article:published_time" content="2021-06-21T12:29:09.000Z">
-<meta property="article:modified_time" content="2021-06-21T15:02:22.981Z">
+<meta property="article:modified_time" content="2021-06-23T06:08:19.572Z">
 <meta property="article:author" content="L&#39;étranger">
-<meta property="article:tag" content="linux">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1grq6h47d48j319p0u0wg6.jpg">
@@ -210,7 +209,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFshell"><span class="nav-number">2.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8shell"><span class="nav-number">3.</span> <span class="nav-text">为什么要使用shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">Shell的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">4.1.</span> <span class="nav-text">环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E8%84%9A%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">shell脚本</span></a></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFshell"><span class="nav-number">2.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8shell"><span class="nav-number">3.</span> <span class="nav-text">为什么要使用shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">Shell的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">4.1.</span> <span class="nav-text">环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E8%84%9A%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">shell脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">5.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">5.2.</span> <span class="nav-text">流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5"><span class="nav-number">5.2.1.</span> <span class="nav-text">分支语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="nav-number">5.2.2.</span> <span class="nav-text">循环语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">5.3.</span> <span class="nav-text">函数</span></a></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -231,13 +230,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -299,10 +298,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-06-21 20:29:09 / 修改时间：23:02:22" itemprop="dateCreated datePublished" datetime="2021-06-21T20:29:09+08:00">2021-06-21</time>
+      <time title="创建时间：2021-06-21 20:29:09" itemprop="dateCreated datePublished" datetime="2021-06-21T20:29:09+08:00">2021-06-21</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-23 14:08:19" itemprop="dateModified" datetime="2021-06-23T14:08:19+08:00">2021-06-23</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -335,14 +340,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>4.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -355,6 +360,7 @@
     <div class="post-body" itemprop="articleBody">
         <h2 id="前言">前言</h2>
 <p>最近在学习《Linux程序设计》这本书，刚看完第二章有关shell脚本的部分。虽然很早之前就接触了linux，但其实对于shell和UNIX的设计哲学一直是半懂不懂的，正好借着这个机会重新梳理一下有关shell的一些细节，基本想到哪就写到哪吧，写的也主要是自己的理解，如果有不对的地方欢迎指正。有趣的是这本书的两位翻译者都是我校的教授，我还上过其中一位的<em>网络攻防</em>这门课，当时也学到了很多linux的小知识，还当了一次小小的hacker，算是本科上的为数不多的有意思的课程之一。</p>
+<a id="more"></a>
 <h2 id="什么是shell">什么是Shell</h2>
 <p>刚接触linux的同学很容易就把terminal和shell混淆，事实上它们是完全不同的两个概念。我的理解是terminal是调用shell的程序，它的任务是实际上是将用户的输入传递给shell，然后再把shell的输出显示到屏幕上。一个或许不那么恰当的理解是terminal实际上是键盘和屏幕的“驱动程序”，真正和系统内核打交道的才是shell。</p>
 <p>举个例子，MacOS上的iTerm2是一个terminal程序，它负责调用系统中安装的shell，例如zsh、bash等，我们可以对terminal的外观进行设置，例如我的terminal长这样</p>
@@ -385,6 +391,101 @@
 <p>Everything is inherited by children processes as children are created as a fork (an exact copy) of their parent. The point with environment variables is that they are passed to the <code>execve()</code> system call so are (typically) used to persist data over the <em>execution</em> of other commands (in the same process).</p>
 </blockquote>
 <h2 id="shell脚本">shell脚本</h2>
+<p>除了在命令行交互地输入命令之外，我们还能将命令写在一个文件里，让shell一次性执行多条命令，这个文件就被称作script。不难发现，python脚本也是如此，把许多条python语句写在一个文件里，然后再通过python解释器进行执行，因此也可以将shell理解为解释器。</p>
+<p>上面我们已经写了一个简单的shell脚本，它只执行一条语句，即<code>echo $foo</code>，而文件的第一行<code>#!/bin/bash</code>显示地告诉当前的shell我们希望以什么程序来执行这段脚本，这里我们使用的是<code>bash</code>。需要注意的是，不同shell的语法也会有些许不同。</p>
+<h3 id="变量">变量</h3>
+<p>在shell脚本中我们可以定义变量，例如<code>foo=bar</code>语句就定义了一个名为<code>foo</code>的变量，它的值为<code>bar</code>，<strong>这里<code>=</code>的两边不能有空格</strong>。注意，在shell中所有变量的值都是以字符串的形式存在，上述命令等价于<code>foo="bar"</code>或<code>foo='bar'</code>。而当我们需要获得一个变量的值时，我们需要在变量名前面加上<code>$</code>，例如shell会将<code>$foo</code>展开为<code>bar</code>。如果我们需要在<code>$foo</code>的后面加上其他的字符串呢？例如，我们想在<code>$foo</code>的后面加上后缀<code>_xxx</code>，若我们将其写成<code>$foo_xxx</code>，shell则会将其展开为一个空的字符串，原因是我们并没有定义变量<code>foo_xxx</code>。所以，我们需要使用<code>&#123;&#125;</code>来显示地指定需要扩展的变量，正确的写法应该是<code>$&#123;foo&#125;_xxx</code>。关于变量的展开，还有一些比较fancy的写法，在这里罗列一下：</p>
+<ol type="1">
+<li><code>$&#123;foo:=bar&#125;</code>，若<code>foo</code>未被赋值，则返回<code>bar</code>并赋值给<code>foo</code>，否则返回<code>foo</code>的值。</li>
+<li><code>$&#123;foo:-bar&#125;</code>，若<code>foo</code>未被赋值，返回<code>bar</code>。和上一条的区别在于它不会给<code>foo</code>赋值。</li>
+<li><code>$&#123;foo%bar&#125;</code>，从<code>foo</code>的尾部删除匹配<code>bar</code>的最短部分，然后返回剩余的部分。</li>
+<li><code>$&#123;foo%%bar&#125;</code>，从<code>foo</code>的尾部删除匹配<code>bar</code>的最长部分，然后返回剩余的部分。</li>
+<li><code>$&#123;foo#bar&#125;</code>，从<code>foo</code>的开头删除匹配<code>bar</code>的最短部分，然后返回剩余的部分。</li>
+<li><code>$&#123;foo##bar&#125;</code>，从<code>foo</code>的开头删除匹配<code>bar</code>的最长部分，然后返回剩余的部分。</li>
+</ol>
+<p>第3-7种写法在处理路径名时将很有用。假设<code>path="/home/user/workspace/script.sh"</code>，则<code>$&#123;path%/*&#125;</code>返回<code>/home/user/workspace</code>，<code>$&#123;path##*/&#125;</code>返回<code>script.sh</code>。</p>
+<p>除了我们自定义的变量之外，我们还可以使用shell本身自带的一些变量：</p>
+<table>
+<thead>
+<tr class="header">
+<th>变量描述</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>$HOME</td>
+<td>当前用户的家目录，是环境变量</td>
+</tr>
+<tr class="even">
+<td>$PATH</td>
+<td>以冒号分隔的用来搜索命令的目录列表，环境变量</td>
+</tr>
+<tr class="odd">
+<td>$0, $1, $2, ..., $n</td>
+<td>当前脚本的参数，$0是脚本名</td>
+</tr>
+<tr class="even">
+<td>$IFS</td>
+<td>域分隔符</td>
+</tr>
+<tr class="odd">
+<td>$#</td>
+<td>参数的个数</td>
+</tr>
+<tr class="even">
+<td>$$</td>
+<td>shell脚本的进程号，通常用于生成临时文件</td>
+</tr>
+<tr class="odd">
+<td>$*</td>
+<td>脚本程序的参数，用IFS的第一个字符分隔开</td>
+</tr>
+<tr class="even">
+<td>$@</td>
+<td>脚本程序的参数，但不使用IFS来分隔</td>
+</tr>
+</tbody>
+</table>
+<h3 id="流程控制">流程控制</h3>
+<p>shell脚本中也可以实现一般程序的流程控制，例如常用的if语句、for语句和while语句。</p>
+<h4 id="分支语句">分支语句</h4>
+<p>if语句的语法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> condition; <span class="keyword">then</span></span><br><span class="line">	do_something</span><br><span class="line"><span class="keyword">elif</span> condition; <span class="keyword">then</span></span><br><span class="line">	do_something</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	do_something</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p>当使用if语句时，我们通常需要和条件语句结合使用 (上述脚本中的<code>condition</code>)，在shell脚本中，常见的条件语句的形式有两种，分别是<code>[ ]</code>和<code>[[ ]]</code>，需要特别注意的是，<strong>在方括号内部的两边各需要一个空格</strong>。<code>[ ]</code>命令常用的测试操作符有这些：</p>
+<table>
+<thead>
+<tr class="header">
+<th>操作符</th>
+<th>测试对象及补充说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>=, !=, -n, -z</td>
+<td>字符串，-n当字符串不为空时为真，使用=时前后需要有空格</td>
+</tr>
+<tr class="even">
+<td>-eq, -ne, -gt, -ge, -lt, -le, !</td>
+<td>表达式，顾名思义</td>
+</tr>
+<tr class="odd">
+<td>-d, -f, -g, -r, -s, -u, -w, -x</td>
+<td>文件，-d和-f比较常用</td>
+</tr>
+</tbody>
+</table>
+<p><code>[[ ]]</code>是<code>[ ]</code>的扩展，常见的区别是可以在<code>[[ ]]</code>里使用逻辑操作符连接不同的测试条件，同时<code>[[ ]]</code>中的字符串比较还支持正则表达式，一般来说<code>[[ ]]</code>更常用一些。除此之外，还可以使用<code>test</code>命令进行条件测试，基本等同于使用<code>[ ]</code>。</p>
+<p>除了<code>if</code>语句之外，shell脚本还支持<code>case</code>语句，基本上和c中的<code>switch</code>语句类似。下面是选自《linux程序设计中》<code>case</code>语句的一个例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$timeofday</span>&quot;</span> <span class="keyword">in</span> </span><br><span class="line">	yes) <span class="built_in">echo</span> <span class="string">&quot;good Morning&quot;</span>;;</span><br><span class="line">	no ) <span class="built_in">echo</span> <span class="string">&quot;Good Afternoon&quot;</span>;;</span><br><span class="line">	*  ) <span class="built_in">echo</span> <span class="string">&quot;sorry, please answer yes or no.&quot;</span></span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+<p>需要注意，<code>case</code>语句的每个分支的末尾都需要使用两个分号，和c中每个switch分支都需要break的原理类似。标记<code>case</code>语句结束的<code>esac</code>应该是<code>case</code>字符翻转得到。</p>
+<h4 id="循环语句">循环语句</h4>
+<p><code>for</code>语句通常被用于处理一组值，这组值可以是任意字符串的集合，例如上述提到的<code>$@</code>变量，它是脚本程序所有参数的集合。同时，也可以使用通配符来匹配一组文件的集合。<code>for</code>语句的语法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> var <span class="keyword">in</span> var_set; <span class="keyword">do</span></span><br><span class="line">	do_something with <span class="variable">$var</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p><code>while</code>语句和<code>for</code>语句十分相似，但它会重复执行循环体直到条件满足为止，熟悉c语言的同学对<code>while</code>语句肯定不会感到陌生，它的语法是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> condition; <span class="keyword">do</span></span><br><span class="line">	do_something</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>除此之外还有<code>until</code>语句，和<code>while</code>十分像，这里就不作过多的介绍了。</p>
+<h3 id="函数">函数</h3>
 <p>未完待续...</p>
 
     </div>
@@ -395,7 +496,6 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/linux/" rel="tag"># linux</a>
               <a href="/tags/shell/" rel="tag"># shell</a>
           </div>
 
@@ -403,7 +503,7 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/uncategorized/Convex-Smooth-Function/" rel="prev" title="Convex Smooth Function">
+                <a href="/Math/Convex-Smooth-Function/" rel="prev" title="Convex Smooth Function">
                   <i class="fa fa-chevron-left"></i> Convex Smooth Function
                 </a>
             </div>
